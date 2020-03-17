@@ -1,0 +1,52 @@
+Laberinto
+	Pintar Laberinto.
+	Mostrar datos de cada coordenada en Hover.
+		Tipo de terreno
+		Si es estado inicial
+		Si es estado final
+		Número de visita. (El estado inicial es la visita 1)
+	Manera de elegir estado incial
+		Se puede cambiar en cualquier momento
+	Manera de elegir estado final
+		Se puede cambiar en cualquier momento
+	Que todas las casillas muestren sus números de visita.
+	Mostrar cuál es el estado inicial
+	Mostrar cuál es el estado final.
+	Mostrar cuál es el estado actual. (Se muestra donde está el ser.)
+	Mostrar letras en las columnas (Empezando por la A) y números en las filas (Empezando por el 1).
+
+
+Terrenos.
+	Formulario para ligar cada id de terreno con un nombre y un color (o una imagen)
+
+
+Archivo laberinto.
+	Subir archivo.
+	Validar Archivo.
+		Tamaño máximo de 15x15
+		Todas las filas con el mismo número de columnas.
+		Solo números, comas y saltos de línea.
+		Solo enteros positivos incluyendo el cero.
+		Si es incorrecto, mostrar mensaje de error con fila y columna.
+		Máximo 10 terrenos.
+	Parseo (leer los terrenos.)
+		Cada número es el id de un tipo de terreno.
+
+
+Seres.
+	Preguntar costo de movimiento por cada uno de los terrenos.
+	Costos enteros o decimales positivos incluyendo el cero.
+	Costos truncados a dos decimales.
+	Forma de agregar no aplica a un terreno.
+	Interfaz para crear seres.
+		Máximo 5 seres.
+	Nunca se juega con dos seres a la vez.
+	Poder elegir un ser y posicionarlo en el estado inicial.
+	Validar si el ser puede moverse en el estado inicial.
+	Validar si el ser puede moverse en el estado final.
+	El ser se puede mover con las teclas arriba, abajo, derecha, izquierda.
+	No se puede mover a terrenos con no aplica.
+	Mostrar mensaje cuando se llega al estado final.
+	No borrar el mapa después de llegar al final.
+	El ser ya no se puede mover una vez que hayas llegado al final.
+	Poder reiniciar en cualquier momento, sin cerrar el programa.
