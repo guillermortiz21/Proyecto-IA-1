@@ -11,5 +11,23 @@ labFileElement.addEventListener('change', function(){
     const labFile = allFiles[0];
 
     // ya tenemos el archivo, ahora validamos que sea un txt
-    console.log(labFile.type);
+    if(labFile.type !== "text/plain"){
+        alert("Error: el archivo debe ser un archivo de texto");
+        return;
+    }
+
+
+    const reader = new FileReader();
+
+    reader.onload = function(event){
+        const fileContents = event.target.result;
+        localStorage.setItem('labFile', fileContents);
+        window.location.href = './assets/labyrinth.html'
+    }
+
+    reader.onerror = function(err){
+        alert("Error en la lectura del archivo.");
+    }
+
+    reader.readAsText(labFile);
 });
