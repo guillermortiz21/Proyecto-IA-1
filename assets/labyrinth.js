@@ -5,8 +5,12 @@ const labyrinthElement = document.getElementById("labyrinth");
 const fileParser = new FileParser(labFile);
 if(fileParser.validateFile()){
     console.log("Valido");
+    const fileArray = fileParser.getFileArray();
+    fileArray.forEach(row => {
+        labyrinthElement.innerHTML += row + '<br>'
+    });
+    
 }else{
-    console.log("No valido");
+    alert(fileParser.getError());
 }
 
-labyrinthElement.innerHTML = labFile
