@@ -4,13 +4,11 @@ class FileParser{
         this.fileArray = this.fileText.split("\r\n");
         this.error = "Se encontraron los siguientes errores:\n";
         this.maxLabSize = 15;
-        this.terrains = [];
+        this.terrainsIds = [];
         this.maxTerrains = 10;
     }
 
     validateFile(){
-        console.log(this.fileArray);
-
         // revisar que el archivo solo contenga números y comas.
         // no pueden haber filas vacías.
         if(!this.validateCharacters()){
@@ -109,17 +107,16 @@ class FileParser{
                     this.fileArray[i][j] = this.fileArray[i][j].replace(/^0+/, "");
                 }
                 // indexOf regresa -1 si no encuentra el elemento
-                if(this.terrains.indexOf(this.fileArray[i][j]) === -1){
+                if(this.terrainsIds.indexOf(this.fileArray[i][j]) === -1){
                     // no está en el arreglo, lo agregamos.
-                    this.terrains.push(this.fileArray[i][j]);
+                    this.terrainsIds.push(this.fileArray[i][j]);
                 }
             }
         }
-        if(this.terrains.length > this.maxTerrains){
+        if(this.terrainsIds.length > this.maxTerrains){
             this.error += "Hay más de 10 terrenos en el archivo.";
             valid = false;
         }
-        console.log(this.terrains);
         return valid;
     }
 
@@ -129,6 +126,10 @@ class FileParser{
 
     getFileArray(){
         return this.fileArray;
+    }
+
+    getTerrainsIds(){
+        return this.terrainsIds;
     }
 }
 

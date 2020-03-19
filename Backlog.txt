@@ -23,6 +23,7 @@ Terrenos.
 Archivo laberinto.
 	--Subir archivo.
 	--Validar Archivo.
+		Que no esté vacío.
 		-- Tamaño máximo de 15x15
 		-- Todas las filas con el mismo número de columnas.
 		-- Solo números, comas y saltos de línea.

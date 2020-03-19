@@ -3,11 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/modalDialog.css">
+    <link rel="stylesheet" href="./styles/colorBox.css">
     <script type="module" src="./labyrinth.js"></script>
     <title>Proyecto IA</title>
 </head>
 <body>
     <h1>Laberinto</h1>
-    <p id="labyrinth"></p>
+    <div id="labyrinth"></div>
+
+    <!-- Modal para la selección de terrenos -->
+    <div id="terrainForm" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Formulario de terrenos</p>
+            <table id="terrainFormTable">
+                <tr>
+                    <th>Id</th>
+                    <th>Terreno</th>
+                </tr>
+            </table>
+            <button type="button" id="terrainsFormButton">Guardar terrenos</button>
+        </div>
+    </div>
+
 </body>
 </html>
