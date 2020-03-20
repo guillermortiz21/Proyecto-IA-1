@@ -38,7 +38,7 @@ const terrainOptions = [
     {
         name: "Camino",
         color: "#FABF8F"
-    },
+    }
 ]
 
 export default terrainOptions;

@@ -1,4 +1,5 @@
 import terrainOptions from './terrainOptions.js';
+
 const colorBox = './assets/colorBox.css';
 console.log(colorBox);
 
@@ -27,7 +28,7 @@ class TerrainForm{
             tableData += '<td>';
             tableData += '<select id="select' + id + '">'
             for(let j=0; j < terrainOptions.length; j++){
-                tableData += '<option value="' + terrainOptions[i].name + '">' + terrainOptions[j].name  + '</option>';
+                tableData += '<option value="' + terrainOptions[j].name + '">' + terrainOptions[j].name  + '</option>';
             }
             tableData += '</select>'
             tableData += '</td>';

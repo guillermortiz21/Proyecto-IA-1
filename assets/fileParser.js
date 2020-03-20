@@ -114,7 +114,7 @@ class FileParser{
             }
         }
         if(this.terrainsIds.length > this.maxTerrains){
-            this.error += "Hay más de 10 terrenos en el archivo.";
+            this.error += `Hay más de ${this.maxTerrains} terrenos en el archivo.`;
             valid = false;
         }
         return valid;
