@@ -12,6 +12,7 @@ class Labyrinth{
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
         this.terrainsFormButton = document.getElementById("terrainsFormButton"); // botón para modificar los datos de los terrenos
+        this.changeFileButton = document.getElementById("changeFileButton"); // botón para volver a cargar ell archivo
 
         // esto es para escuchar eventos de cambios de estilo de formulario de terrenos
         // el evento se dispara cuando el formulario cambia su estilo display
@@ -67,6 +68,10 @@ class Labyrinth{
         this.terrainsFormButton.onclick = function(){
             this.drawTerrainsForm();
         }.bind(this)
+
+        this.changeFileButton.onclick = function(){
+            window.location.href = '../index.html'
+        }
     }
 
     terrainFormObserverCallback(changes){

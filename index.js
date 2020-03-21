@@ -17,13 +17,11 @@ labFileElement.addEventListener('change', function(){
         return;
     }
 
-
     const reader = new FileReader();
 
     reader.onload = function(event){
         const fileContents = event.target.result;
         localStorage.setItem('labFile', fileContents);
-        //Labyrinth.setLabFile(fileContents);
         window.location.href = './assets/labyrinth.html'
     }
 

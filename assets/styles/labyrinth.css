@@ -32,3 +32,24 @@ body{
     height: 50px;
     margin-top: 10px;
 }   
+
+input[type="file"] {
+    display: none;
+}
+
+.topButtons{
+    background-color: #FCFCFC;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+    height: 50px;
+    display: inline-block;
+    width: 100px;
+    vertical-align: top;
+    padding: 10px;
+    margin: auto;
+    text-align: center;
+    font: 400 13.3333px Arial;
+    align-items: flex-start;
+    box-sizing: border-box;
+}

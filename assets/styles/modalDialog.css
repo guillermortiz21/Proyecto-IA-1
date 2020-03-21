@@ -58,8 +58,3 @@ th {
 }
 
 tr:nth-child(even){background-color: #f2f2f2}
-
-.topButtons{
-  width: 100px;
-  height: 50px;
-}
