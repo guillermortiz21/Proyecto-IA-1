@@ -1,4 +1,5 @@
 const labFileElement = document.getElementById("labFile");
+import Labyrinth from './assets/Labyrinth.js'
 
 labFileElement.addEventListener('change', function(){
     // dentro de this.files hay un arreglo de archivos
@@ -22,6 +23,7 @@ labFileElement.addEventListener('change', function(){
     reader.onload = function(event){
         const fileContents = event.target.result;
         localStorage.setItem('labFile', fileContents);
+        //Labyrinth.setLabFile(fileContents);
         window.location.href = './assets/labyrinth.html'
     }
 

@@ -1,14 +1,26 @@
+import Labyrinth from './Labyrinth.js'
+
 class FileParser{
-    constructor(fileText){
-        this.fileText = fileText.replace(/\r\n|\n\r|\n|\r/g, "\r\n"); // para aceptar cualquier tipo de salto de linea - retorno de carro
-        this.fileArray = this.fileText.split("\r\n");
+    constructor(){
+        this.labFile = Labyrinth.getLabFile();
+        this.fileText = "";
+        this.fileArray = "";
         this.error = "Se encontraron los siguientes errores:\n";
         this.maxLabSize = 15;
         this.terrainsIds = [];
         this.maxTerrains = 10;
     }
 
-    validateFile(){
+    createFileArray(){
+        this.fileText = this.labFile.replace(/\r\n|\n\r|\n|\r/g, "\r\n"); // para aceptar cualquier tipo de salto de linea - retorno de carro
+        this.fileArray = this.fileText.split("\r\n");
+    }
+
+
+    parseAndValidateFile(){
+        // crear arreglo con cada una de las filas del archivo.
+        this.createFileArray();
+
         // revisar que el archivo solo contenga números y comas.
         // no pueden haber filas vacías.
         if(!this.validateCharacters()){
@@ -32,7 +44,6 @@ class FileParser{
         if(!this.validateMaxTerrains()){
             return false;
         }
-
         return true;
     }
 

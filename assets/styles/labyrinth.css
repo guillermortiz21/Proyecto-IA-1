@@ -1,0 +1,9 @@
+.cell{
+    display: inline-flex;
+    width: 50px;
+    height: 50px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    background-color: green;
+}
