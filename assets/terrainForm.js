@@ -4,33 +4,39 @@ import Labyrinth from './Labyrinth.js'
 
 class TerrainForm{
     constructor(){
-        this.terrainsIds = Labyrinth.getTerrainsIds();
-        this.terrainFormModal = document.getElementById("terrainForm");
-        this.terrainFormTable = document.getElementById("terrainFormTable").getElementsByTagName("tbody")[0];
-        this.terrainsFormButton = document.getElementById("submitTerrainsFormButton");
-        this.terrainValues = [];
-        this.setListenters();
+        this.terrainsIds = Labyrinth.getTerrainsIds(); // ids de los distintos terrenos que llegaron del archivo
+        this.terrainFormModal = document.getElementById("terrainForm"); // elemento html del form de terrenos (el modal)
+        this.terrainFormTable = document.getElementById("terrainFormTable").getElementsByTagName("tbody")[0]; //cuerpo de da tabla donde se seleccionan los terrenos
+        this.terrainsFormButton = document.getElementById("submitTerrainsFormButton"); // botón para procesas los datos ingresados de terrenos.
+        this.terrainValues = []; // arreglo que guarda diccionarios con id de terreno, y el nombre y color seleccionados para ese id
+        this.setListenters(); // para escuchar el click del botón
     }
 
     getTerrrainValues(){
-        return this.terrainValues;
+        return this.terrainValues; // retorna el diccionario con los datos de los terrenos
     }
 
     setListenters(){
+        // escuchar el click del botón para procesar los datos ingresados.
         this.terrainsFormButton.onclick = this.terrainButtonClick.bind(this);
     }
 
     drawTerrainsForm(){
         this.terrainFormModal.style.display = "block";
         var tableData = ""
-        this.terrainFormTable.innerHTML = "";
+        this.terrainFormTable.innerHTML = '<tr><th>Id</th><th>Terreno</th></tr>' // limpiar formulario.
+        
+        // va a haber una row por cada uno de los id de terreno
         for(let i=0; i < this.terrainsIds.length; i++){
             let id = this.terrainsIds[i];
             tableData = "";
-            tableData += '<tr id="'+ id +'">';
-            tableData += '<td id="leftCell' + id + '">' + id + '</td>';
+            tableData += '<tr id="'+ id +'">'; // table row del terrain id
+            tableData += '<td id="leftCell' + id + '">' + id + '</td>'; // celda que muestra el id del terreno
+
+            // celda que va a mostrar las distintas opciones de terreno disponibles
             tableData += '<td class="colorsList"><div class="radioContainer">';
             for(let j=0; j < terrainOptions.length; j++){
+                // agrego un radio para cada uno de los tipos de terrenos
                 tableData += '<div class="radioContainer"><input type="radio" id="terrain' + terrainOptions[j].id + id + '"name="terrain' + id + '" value="' + terrainOptions[j].id + '"></div>'
                 tableData += '<label for="terrain' + terrainOptions[j].id + id + '">' + terrainOptions[j].name + '<div class="colorBox ' + terrainOptions[j].id + '" ></div></label>'
             }
