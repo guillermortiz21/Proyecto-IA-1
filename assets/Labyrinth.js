@@ -8,6 +8,8 @@ class Labyrinth{
         this.fileArray = []; // arreglo de arreglos. El primer arreglo contiene cada fila del archivo. Cada fila contiene los ids por separado
         this.terrainsIds = []; // arreglo con cada uno de los ids de terrenos
         this.terrainValues = []; // arreglo que guarda diccionarios. Cada diccionario contiene id de terreno, nombre del terreno y su color.
+        this.initialState = {};
+        this.finalState = {};
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
@@ -102,7 +104,14 @@ class Labyrinth{
             // mostrar número de fila
             labyrinthHtml += '<div id="leftCell' + parseInt(i+1) + '" class="leftCell">' + parseInt(i+1) + '</div>';
             for(let j = 0; j < this.fileArray[i].length; j++){
-                labyrinthHtml += '<div id="cell' + i + ',' + j + '" class="cell ' + this.fileArray[i][j] + '">' + this.fileArray[i][j] + '</div>';
+                labyrinthHtml += '<div id="cell' + i + ',' + j + '" class="cell ' + this.fileArray[i][j] + ' popup">&nbsp'
+                // poner aqui el popup para seleccionar si esta casilla es estado incial o final
+                labyrinthHtml += '<span class="popuptext" id="popup' + i + "," + j + '">'
+                // ponder botones para setear inicial y final
+                labyrinthHtml += '<button id="popupButtonInitial' + i + "," + j + '">Seleccionar inicial</button>';
+                labyrinthHtml += '<button id="popupButtonFinal' + i + "," + j + '">Seleccionar final</button>';
+                labyrinthHtml += '</span>'
+                labyrinthHtml += '</div>';
             }
             labyrinthHtml += "<br>"
         }
@@ -115,6 +124,55 @@ class Labyrinth{
                 elements[j].style.backgroundColor = this.terrainValues[i].color;
             }
         }
+
+        // agregar a cada celda un evento de click para seleccionarla como inicial o final
+        this.addCellsOnClickEvents();
+    }
+
+    addCellsOnClickEvents(){
+        // agregar un evento on click a cada una de las celdas del laberinto
+        // esto es para mostrar un submenu para seleccionar la celda como
+        // inicial o final
+        for(let i=0; i < this.fileArray.length; i++){
+            for(let j=0; j < this.fileArray[i].length; j++){
+
+                // setear los botones los popups para seleccionar estado inicial y final
+
+                let initailStateButton = document.getElementById("popupButtonInitial" + i + "," + j);
+                initailStateButton.onclick = function(){
+                    this.setInitialState(i,j);
+                }.bind(this);
+
+                let finalStateButton = document.getElementById("popupButtonFinal" + i + "," + j);
+                finalStateButton.onclick = function(){
+                    this.setFinallState(i,j);
+                }.bind(this);
+
+                // setear el onclick de cada una de las celdas
+
+                let cell = document.getElementById("cell" + i + "," + j);
+                cell.onclick = function(event){
+                    let popup = document.getElementById("popup" + i + "," + j);
+                    popup.classList.toggle("show");
+                }
+            }
+        }
+    }
+
+    setInitialState(i,j){
+        this.initialState = {
+            row: i,
+            column: j
+        }
+        console.log(this.initialState);
+    }
+
+    setFinallState(i,j){
+        this.finalState = {
+            row: i,
+            column: j
+        }
+        console.log(this.finalState);
     }
 }
 
