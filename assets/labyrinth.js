@@ -43,7 +43,7 @@ class Labyrinth{
             this.drawTerrainsForm()
         }else{
             alert(this.fileParser.getError());
-
+            window.location.href = '../index.html'
         }
     }
 

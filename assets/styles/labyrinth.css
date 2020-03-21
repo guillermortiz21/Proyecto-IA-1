@@ -1,5 +1,10 @@
+body{
+    min-width: 900px;
+    background-color: #ADD8E6;
+}
+
 .header, .leftCell{
-    display: inline-flex;
+    display: inline-block;
     width: 50px;
     height: 50px;
     border-style: solid;
@@ -9,11 +14,22 @@
 }
 
 .cell{
-    display: inline-flex;
+    display: inline-block;
     width: 50px;
     height: 50px;
     border-style: solid;
     border-width: 2px;
     border-color: black;
     background-color: green;
+}
+
+.labyrinth{
+    text-align: center;
+}
+
+.terrainsFormButton{
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+}   
 }

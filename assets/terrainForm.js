@@ -28,13 +28,13 @@ class TerrainForm{
             let id = this.terrainsIds[i];
             tableData = "";
             tableData += '<tr id="'+ id +'">';
-            tableData += '<td>' + id + '</td>';
-            tableData += '<td class="colorsList">';
+            tableData += '<td id="leftCell' + id + '">' + id + '</td>';
+            tableData += '<td class="colorsList"><div class="radioContainer">';
             for(let j=0; j < terrainOptions.length; j++){
-                tableData += '<input type="radio" id="terrain' + terrainOptions[j].id + id + '"name="terrain' + id + '" value="' + terrainOptions[j].id + '">'
+                tableData += '<div class="radioContainer"><input type="radio" id="terrain' + terrainOptions[j].id + id + '"name="terrain' + id + '" value="' + terrainOptions[j].id + '"></div>'
                 tableData += '<label for="terrain' + terrainOptions[j].id + id + '">' + terrainOptions[j].name + '<div class="colorBox ' + terrainOptions[j].id + '" ></div></label>'
             }
-            tableData += '</td>';
+            tableData += '</div></td>';
             tableData += '</tr>'
             this.terrainFormTable.innerHTML += tableData;
         }
