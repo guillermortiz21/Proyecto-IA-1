@@ -75,7 +75,18 @@ class Labyrinth{
         var labyrinthHtml = "";
         // iterar a traves de toda la matriz dentro de fileArray
         // y crear el html
+
+        // imprimir bloque vacío de esquina superior izquierda
+        labyrinthHtml += '<div id="headerStart" class="header">&nbsp</div>';
+
+        // imprimir letras de la A a la arrayLenth
+        for(let l = 65, i = 0; i < this.fileArray[0].length; l++, i++){
+            labyrinthHtml += '<div id="header' + String.fromCharCode(l) + '" class="header">' + String.fromCharCode(l) + '</div>';
+        }
+        labyrinthHtml += "<br>"
         for(let i = 0; i < this.fileArray.length; i++){
+            // mostrar número de fila
+            labyrinthHtml += '<div id="leftCell' + parseInt(i+1) + '" class="leftCell">' + parseInt(i+1) + '</div>';
             for(let j = 0; j < this.fileArray[i].length; j++){
                 labyrinthHtml += '<div id="cell' + i + ',' + j + '" class="cell ' + this.fileArray[i][j] + '">' + this.fileArray[i][j] + '</div>';
             }
