@@ -7,8 +7,7 @@ class TerrainForm{
         this.terrainsIds = Labyrinth.getTerrainsIds();
         this.terrainFormModal = document.getElementById("terrainForm");
         this.terrainFormTable = document.getElementById("terrainFormTable").getElementsByTagName("tbody")[0];
-        this.terrainsFormButton = document.getElementById("terrainsFormButton");
-        this.terrainFormChangeWatcher = document.getElementById("terrainFormChangeWatcher");
+        this.terrainsFormButton = document.getElementById("submitTerrainsFormButton");
         this.terrainValues = [];
         this.setListenters();
     }
@@ -24,6 +23,7 @@ class TerrainForm{
     drawTerrainsForm(){
         this.terrainFormModal.style.display = "block";
         var tableData = ""
+        this.terrainFormTable.innerHTML = "";
         for(let i=0; i < this.terrainsIds.length; i++){
             let id = this.terrainsIds[i];
             tableData = "";
@@ -46,6 +46,15 @@ class TerrainForm{
             }
         }
 
+        this.setAlreadySelectedValues();
+
+    }
+
+    setAlreadySelectedValues(){
+        const terrainValues = Labyrinth.getTerrrainValues();
+        for(let i = 0; i < terrainValues.length; i++){
+            document.getElementById("terrain" + terrainValues[i].terrainId + terrainValues[i].id).checked = true;
+        }
     }
 
     terrainButtonClick(event){
@@ -57,11 +66,12 @@ class TerrainForm{
             let selected = document.querySelector('input[name="terrain' + id + '"]:checked');
             if(selected){
                 selected = selected.value;
-                let {name, color} = this.findTerrain(selected);
+                let terrain = this.findTerrain(selected);
                 let values  = {
-                    id,
-                    name,
-                    color
+                    id: id,
+                    terrainId: terrain.id,
+                    name: terrain.name,
+                    color: terrain.color
                 }
                 this.terrainValues.push(values);
             }else{

@@ -9,9 +9,11 @@
     <title>Proyecto IA</title>
 </head>
 <body>
+    <div class="buttons">
+        <button type="button" id="terrainsFormButton" class="topButtons">Modificar Terrenos</button>
+    </div>
     <h1>Laberinto</h1>
-    <div id="labyrinth" class="labyrinth"></div>
-
+    
     <!-- Modal para la selección de terrenos -->
     <div id="terrainForm" class="modal">
         <div class="modal-content">
@@ -22,9 +24,11 @@
                     <th>Terreno</th>
                 </tr>
             </table>
-            <button type="button" id="terrainsFormButton" class="terrainsFormButton">Guardar terrenos</button>
+            <button type="button" id="submitTerrainsFormButton" class="terrainsFormButton">Guardar terrenos</button>
         </div>
     </div>
-
+    
+    <div id="labyrinth" class="labyrinth"></div>
+    
 </body>
 </html>

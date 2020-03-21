@@ -11,14 +11,14 @@ class Labyrinth{
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
+        this.terrainsFormButton = document.getElementById("terrainsFormButton"); // botón para modificar los datos de los terrenos
 
         // esto es para escuchar eventos de cambios de estilo de formulario de terrenos
         // el evento se dispara cuando el formulario cambia su estilo display
         // el display cambia a block cuando aparece el formulario y a none cuando se cierra.
         // cuando se cierra el formulario de terrenos quiere decir que los datos de terreno se ingresaron
         // por lo que hay que dibujar el laberinto con esos nuevos datos.
-        this.terrainsFormObserver = new MutationObserver(this.terrainFormObserverCallback.bind(this));
-        
+        this.terrainsFormObserver = new MutationObserver(this.terrainFormObserverCallback.bind(this));    
     }
 
     setLabFile(labFile){
@@ -33,6 +33,10 @@ class Labyrinth{
         return this.terrainsIds;
     }
 
+    getTerrrainValues(){
+        return this.terrainValues;
+    }
+
     parseFile(){
         this.fileParser = new FileParser();
         if(this.fileParser.parseAndValidateFile()){
@@ -40,7 +44,8 @@ class Labyrinth{
             this.fileArray = this.fileParser.getFileArray();
             this.terrainsIds = this.fileParser.getTerrainsIds();
             this.setObservers();
-            this.drawTerrainsForm()
+            this.setListeners();
+            this.drawTerrainsForm();
         }else{
             alert(this.fileParser.getError());
             window.location.href = '../index.html'
@@ -58,6 +63,12 @@ class Labyrinth{
         this.terrainsFormObserver.observe(this.terrainFormModal, {attributes:true, attributeFilter:['style']});
     }
 
+    setListeners(){
+        this.terrainsFormButton.onclick = function(){
+            this.drawTerrainsForm();
+        }.bind(this)
+    }
+
     terrainFormObserverCallback(changes){
         if(changes[0].target.style.cssText === "display: none;"){
             // en el formulario de terrenos se setearon ya los valores de cada terreno
@@ -70,8 +81,6 @@ class Labyrinth{
     }
 
     drawLabyrinth(){
-        console.log(this.fileArray);
-        console.log(this.terrainValues);
         var labyrinthHtml = "";
         // iterar a traves de toda la matriz dentro de fileArray
         // y crear el html
