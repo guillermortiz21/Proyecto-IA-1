@@ -12,11 +12,10 @@
 </head>
 <body>
     <div class="buttons">
-        <!-- <input id="labFile" type="file"/>
-        <label for="labFile" class="topButtons">Cambiar archivo</label> -->
         <button type="button" id="changeFileButton" class="topButtons">Cambiar archivo</button>
         <button type="button" id="terrainsFormButton" class="topButtons">Modificar Terrenos</button>
-    </div>
+        <button type="button" id="charactersFormButton" class="topButtons charactersButton">Modificar seres</button>
+    </div> 
     <h1>Laberinto</h1>
     
     <!-- Modal para la selección de terrenos -->
@@ -30,6 +29,21 @@
                 </tr>
             </table>
             <button type="button" id="submitTerrainsFormButton" class="submitButton">Guardar terrenos</button>
+        </div>
+    </div>
+
+
+    <!-- Modal para la selección de seres -->
+    <div id="characterForm" class="modal">
+        <div class="modal-content">
+            <p>Formulario de seres</p>
+            <table id="charactersFormTable">
+                <tr>
+                    <th>Terrenos</th>
+                    <th>Configuraciones</th>
+                </tr>
+            </table>
+            <button type="button" id="submitCharactersFormButton" class="submitButton">Guardar seres</button>
         </div>
     </div>
     

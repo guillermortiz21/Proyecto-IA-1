@@ -1,4 +1,4 @@
-import Labyrinth from './Labyrinth.js'
+import Labyrinth from './labyrinth.js'
 
 class FileParser{
     constructor(){

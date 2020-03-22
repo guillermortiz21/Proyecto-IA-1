@@ -1,10 +1,10 @@
-import Labyrinth from './Labyrinth.js'
+import Labyrinth from './labyrinth.js'
 import charactersOptions from './charactersOptions.js'
 
 class Characters{
     constructor(){
         this.terrainsIds = Labyrinth.getTerrainsIds(); //Obtiene los id's de los terrenos
-        this.terrainsValues = Labyrinth.getTerrrainValues();//Obtiene diccionario de 
+        this.terrainsValues = Labyrinth.getTerrrainValues();//Obtiene diccionario de terrenos
         this.characterFormModal = document.getElementById("characterForm"); //Elemento html del modal de terrenos
         this.characterFormTable = document.getElementById("charactersFormTable").getElementsByTagName("tbody")[0]; //cuerpo de da tabla donde se seleccionan los terrenos
         this.characterFormButton = document.getElementById("submitCharactersFormButton"); // botón para procesas los datos ingresados de terrenos.

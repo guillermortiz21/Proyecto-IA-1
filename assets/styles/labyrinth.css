@@ -54,6 +54,10 @@ input[type="file"] {
     box-sizing: border-box;
 }
 
+.charactersButton{
+    display: none;
+}
+
 .visit, .initial, .final{
     vertical-align: top;
     width: min-content;

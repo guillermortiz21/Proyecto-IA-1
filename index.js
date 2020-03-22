@@ -1,5 +1,5 @@
 const labFileElement = document.getElementById("labFile");
-import Labyrinth from './assets/Labyrinth.js'
+import Labyrinth from './assets/labyrinth.js'
 
 labFileElement.addEventListener('change', function(){
     // dentro de this.files hay un arreglo de archivos

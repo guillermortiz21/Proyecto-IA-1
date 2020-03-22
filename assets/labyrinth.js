@@ -1,6 +1,6 @@
 import FileParser from './fileParser.js';
 import TerrainForm from './terrainForm.js';
-import Characters from './characters';
+import Characters from './characters.js';
 
 
 class Labyrinth{
@@ -11,12 +11,13 @@ class Labyrinth{
         this.terrainValues = []; // arreglo que guarda diccionarios. Cada diccionario contiene id de terreno, nombre del terreno y su color.
         this.initialState = {};
         this.finalState = {};
-        this.characters = Characters;
+        this.characters = {};
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
         this.terrainsFormButton = document.getElementById("terrainsFormButton"); // botón para modificar los datos de los terrenos
         this.changeFileButton = document.getElementById("changeFileButton"); // botón para volver a cargar ell archivo
+        this.charactersFormButton = document.getElementById("charactersFormButton"); // botón para mostrar el formulario de seres
 
         // esto es para escuchar eventos de cambios de estilo de formulario de terrenos
         // el evento se dispara cuando el formulario cambia su estilo display
@@ -64,6 +65,11 @@ class Labyrinth{
             this.setObservers();
             this.setListeners();
             this.drawTerrainsForm();
+            
+            // para dibujar ell from de caracteres primero debemos tener
+            // los terrenos, en este punto los terrenos aun no
+            // se ingresan, necesitamos mover la dibujada del
+            // formulario de seres
             //this.drawCharactersForm();
         }else{
             alert(this.fileParser.getError());
@@ -96,6 +102,10 @@ class Labyrinth{
         this.changeFileButton.onclick = function(){
             window.location.href = '../index.html'
         }
+
+        this.charactersFormButton.onclick = function(){
+            this.drawCharactersForm();
+        }.bind(this);
     }
 
     terrainFormObserverCallback(changes){
@@ -109,6 +119,13 @@ class Labyrinth{
 
             // tenemos los datos de los terrenos. Ya podemos dibujar el laberinto!
             this.drawLabyrinth();
+
+            // aquí ya podemos dibujar nuestro formulario de seres 
+            // porque ya tenemos la información de los terrenos
+            // mostramos el botón para modificar seres
+            // y mostramos el formulario de seres
+            this.charactersFormButton.style.display =  "inline-block";
+            this.drawCharactersForm();
         }
     }
 
@@ -191,8 +208,8 @@ class Labyrinth{
         this.addHovers();
 
         // el laberinto ya está en pantalla, ya puedo mover a mi personaje.
-        this.labyrinthMovement = new LabyrinthMovement();
-        this.labyrinthMovement.startMovement();
+        /*this.labyrinthMovement = new LabyrinthMovement();
+        this.labyrinthMovement.startMovement();*/
     }
 
     addCellsOnClickEvents(){

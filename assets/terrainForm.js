@@ -1,5 +1,5 @@
 import terrainOptions from './terrainOptions.js';
-import Labyrinth from './Labyrinth.js'
+import Labyrinth from './labyrinth.js'
 
 
 class TerrainForm{
