@@ -544,6 +544,7 @@ class Labyrinth{
         return terrain;
     }
 
+
     // proceso para limpiar los estados iniciales y finales
     // esto se usa cuando se recarga un nuevo archivo
     // o cuando se recargan los terrenos
