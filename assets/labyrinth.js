@@ -1,5 +1,6 @@
 import FileParser from './fileParser.js';
 import TerrainForm from './terrainForm.js';
+import Characters from './characters';
 
 
 class Labyrinth{
@@ -18,7 +19,8 @@ class Labyrinth{
         // el display cambia a block cuando aparece el formulario y a none cuando se cierra.
         // cuando se cierra el formulario de terrenos quiere decir que los datos de terreno se ingresaron
         // por lo que hay que dibujar el laberinto con esos nuevos datos.
-        this.terrainsFormObserver = new MutationObserver(this.terrainFormObserverCallback.bind(this));    
+        this.terrainsFormObserver = new MutationObserver(this.terrainFormObserverCallback.bind(this)); 
+        
     }
 
     setLabFile(labFile){
@@ -46,11 +48,18 @@ class Labyrinth{
             this.setObservers();
             this.setListeners();
             this.drawTerrainsForm();
+            //this.drawCharactersForm();
         }else{
             alert(this.fileParser.getError());
             window.location.href = '../index.html'
         }
     }
+
+    drawCharactersForm(){
+        this.characterForm = new Characters();
+        this.characterForm.drawCharactersForm();
+    }
+
 
     drawTerrainsForm(){
         this.terrainForm = new TerrainForm();
