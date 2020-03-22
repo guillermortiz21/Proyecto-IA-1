@@ -1,5 +1,7 @@
 import FileParser from './fileParser.js';
 import TerrainForm from './terrainForm.js';
+import Characters from './mocks/characters.js'
+import LabyrinthMovement from './labyrinthMovement.js'
 
 class Labyrinth{
     constructor(){
@@ -9,6 +11,7 @@ class Labyrinth{
         this.terrainValues = []; // arreglo que guarda diccionarios. Cada diccionario contiene id de terreno, nombre del terreno y su color.
         this.initialState = {};
         this.finalState = {};
+        this.characters = Characters;
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
@@ -37,6 +40,18 @@ class Labyrinth{
 
     getTerrrainValues(){
         return this.terrainValues;
+    }
+
+    getCharacters(){
+        return this.characters;
+    }
+
+    getInitialState(){
+        return this.initialState;
+    }
+
+    getFinalState(){
+        return this.finalState;
     }
 
     parseFile(){
@@ -118,7 +133,10 @@ class Labyrinth{
                 labyrinthHtml += '<div class="final">F</div>'
                 
                 // div para el número de visitas
-                labyrinthHtml += '<div class="visit">0</div>'
+                labyrinthHtml += '<div class="visit"></div>'
+                
+                // div para mostrar a nuestro ser en cada una de las seldas
+                labyrinthHtml += '<div id="characterContainer' + i + ',' + j + '" class="character">#</div>'
 
                 // poner aqui el popup para seleccionar si esta casilla es estado incial o final
                 labyrinthHtml += '<span class="popuptext" id="popup' + i + "," + j + '">'
@@ -163,6 +181,10 @@ class Labyrinth{
 
         // agregar hovers que nos digan los datos de cada celda.
         this.addHovers();
+
+        // el laberinto ya está en pantalla, ya puedo mover a mi personaje.
+        this.labyrinthMovement = new LabyrinthMovement();
+        this.labyrinthMovement.startMovement();
     }
 
     addCellsOnClickEvents(){

@@ -1,0 +1,9 @@
+.character{
+    visibility: hidden;
+    font-size: 30px;
+    padding: 7px;
+    box-sizing: border-box;
+    width: min-content;
+    text-align: center;
+    margin: auto;
+}
