@@ -18,7 +18,7 @@ class Labyrinth{
         this.terrainsFormButton = document.getElementById("terrainsFormButton"); // botón para modificar los datos de los terrenos
         this.changeFileButton = document.getElementById("changeFileButton"); // botón para volver a cargar ell archivo
         this.charactersFormButton = document.getElementById("charactersFormButton"); // botón para mostrar el formulario de seres
-
+        
         // esto es para escuchar eventos de cambios de estilo de formulario de terrenos
         // el evento se dispara cuando el formulario cambia su estilo display
         // el display cambia a block cuando aparece el formulario y a none cuando se cierra.
