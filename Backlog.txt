@@ -45,9 +45,9 @@ Seres.
 	Poder elegir un ser y posicionarlo en el estado inicial.
 	Validar si el ser puede moverse en el estado inicial.
 	Validar si el ser puede moverse en el estado final.
-	El ser se puede mover con las teclas arriba, abajo, derecha, izquierda.
-	No se puede mover a terrenos con no aplica.
-	Mostrar mensaje cuando se llega al estado final.
-	No borrar el mapa después de llegar al final.
-	El ser ya no se puede mover una vez que hayas llegado al final.
+	--El ser se puede mover con las teclas arriba, abajo, derecha, izquierda.
+	--No se puede mover a terrenos con no aplica.
+	--Mostrar mensaje cuando se llega al estado final.
+	--No borrar el mapa después de llegar al final.
+	--El ser ya no se puede mover una vez que hayas llegado al final.
 	Poder reiniciar en cualquier momento, sin cerrar el programa.

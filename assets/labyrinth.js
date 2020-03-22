@@ -1,6 +1,8 @@
 import FileParser from './fileParser.js';
 import TerrainForm from './terrainForm.js';
 import Characters from './characters.js';
+import LabyrinthMovement from './labyrinthMovement.js';
+import characterMocks  from './mocks/characters.js'
 
 
 class Labyrinth{
@@ -10,14 +12,26 @@ class Labyrinth{
         this.terrainsIds = []; // arreglo con cada uno de los ids de terrenos
         this.terrainValues = []; // arreglo que guarda diccionarios. Cada diccionario contiene id de terreno, nombre del terreno y su color.
         this.initialState = {};
+        this.currentState = {};
         this.finalState = {};
         this.characters = {};
+        this.currentCharacter = {};
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
         this.terrainsFormButton = document.getElementById("terrainsFormButton"); // botón para modificar los datos de los terrenos
         this.changeFileButton = document.getElementById("changeFileButton"); // botón para volver a cargar ell archivo
         this.charactersFormButton = document.getElementById("charactersFormButton"); // botón para mostrar el formulario de seres
+
+        // botón para iniciar el laberinto
+        // para iniciarlo primero deben de pasar las siguientes cosas:
+        // se debe de elegir un archivo
+        // se deben elegir los terrenos (this.terrainValues no vacío)
+        // se deben configurar los seres (this.characters no vacío)
+        // se debe elegir un ser para jugar (this.currentCharacter no vacío)
+        // debe haber un inicial y un final (this.finalState y this.initialState no vacíos)
+        this.startLabyrinthButton = document.getElementById("startLabyrinthButton"); // botón para iniciar el laberinto.
+        this.finishLabyrinthButton = document.getElementById("finishLabyrinthButton");
         
         // esto es para escuchar eventos de cambios de estilo de formulario de terrenos
         // el evento se dispara cuando el formulario cambia su estilo display
@@ -25,11 +39,17 @@ class Labyrinth{
         // cuando se cierra el formulario de terrenos quiere decir que los datos de terreno se ingresaron
         // por lo que hay que dibujar el laberinto con esos nuevos datos.
         this.terrainsFormObserver = new MutationObserver(this.terrainFormObserverCallback.bind(this)); 
+
+        this.labyrinthMovement = new LabyrinthMovement();
         
     }
 
     setLabFile(labFile){
         this.labFile = labFile;
+    }
+
+    getFileArray(){
+        return this.fileArray;
     }
 
     getLabFile(){
@@ -48,12 +68,30 @@ class Labyrinth{
         return this.characters;
     }
 
+    getCurrentCharacter(){
+        return this.currentCharacter;
+    }
+
     getInitialState(){
         return this.initialState;
     }
 
     getFinalState(){
         return this.finalState;
+    }
+
+    setCurrentState(currentState){
+        this.currentState = currentState;
+    }
+
+    getRowNumber(){
+        // obtener el número de filas
+        return this.fileArray.length;
+    }
+
+    getColumnNumber(){
+        // obtener el número de columnas
+        return this.fileArray[0].length;
     }
 
     parseFile(){
@@ -89,6 +127,51 @@ class Labyrinth{
         this.terrainForm.drawTerrainsForm();
     }
 
+    startLabyrinth(){
+        // desactivar los botones mientras se ejecuta el laberinto
+        this.hideButtons();
+        // mostrar botón para detener el laberinto
+        this.finishLabyrinthButton.style.display = "inline-block";
+        this.characters = characterMocks;
+        this.currentCharacter = characterMocks[0];
+        this.labyrinthMovement.startLabyrinth();
+    }
+
+    drawVisit(i, j, visitNumber){
+        const cell = this.getLabyrinthElement("cell", i, j);
+        const visit = cell.getElementsByClassName("visit")[0];
+        if(visit.innerHTML === ""){
+            // es el primer elemento, no dibujamos coma
+            visit.innerHTML += visitNumber;
+        }else{
+            // no es el primero, dibujamos coma
+            visit.innerHTML += "," + visitNumber;
+        }
+    }
+
+    finishLabyrinth(){
+        this.showButtons();
+        this.finishLabyrinthButton.style.display = "none";
+        this.clearLabyrint();
+    }
+
+    clearLabyrint(){
+        //este proceso limpia todas las visitas del laberinto y el dibujo del estado actual
+        for(let i=0; i < this.fileArray.length; i++){
+            for(let j=0; j < this.fileArray[i].length; j++){
+                // limpiar las visitas
+                // obtengo la celda
+                const cell = this.getLabyrinthElement("cell", i, j);
+                // encontrar hijo con clase visit
+                const visit = cell.getElementsByClassName("visit")[0];
+                visit.innerHTML = "";
+                
+                // borrar el estado actual
+                this.labyrinthMovement.eraseState(this.currentState.row, this.currentState.column);
+            }
+        }
+    }
+
     setObservers(){
         // observar cambios de estilo del formulario de terrenos
         this.terrainsFormObserver.observe(this.terrainFormModal, {attributes:true, attributeFilter:['style']});
@@ -105,6 +188,14 @@ class Labyrinth{
 
         this.charactersFormButton.onclick = function(){
             this.drawCharactersForm();
+        }.bind(this);
+
+        this.startLabyrinthButton.onclick = function(){
+            this.startLabyrinth();
+        }.bind(this);
+
+        this.finishLabyrinthButton.onclick = function(){
+            this.finishLabyrinth();
         }.bind(this);
     }
 
@@ -126,6 +217,10 @@ class Labyrinth{
             // y mostramos el formulario de seres
             this.charactersFormButton.style.display =  "inline-block";
             this.drawCharactersForm();
+
+            // mostramos el botón para iniciar laberinto
+            // (esto se hace ahorita solo por prueba, debería mostrarse hasta que se configuran los seres)
+            this.startLabyrinthButton.style.display = "inline-block";
         }
     }
 
@@ -206,10 +301,6 @@ class Labyrinth{
 
         // agregar hovers que nos digan los datos de cada celda.
         this.addHovers();
-
-        // el laberinto ya está en pantalla, ya puedo mover a mi personaje.
-        /*this.labyrinthMovement = new LabyrinthMovement();
-        this.labyrinthMovement.startMovement();*/
     }
 
     addCellsOnClickEvents(){
@@ -299,6 +390,10 @@ class Labyrinth{
             row: i,
             column: j
         }
+    }
+
+    statesSet(){
+        return (Object.keys(this.initialState).length !== 0 && Object.keys(this.finalState).length !== 0);
     }
 
     // función para agregar los hovers que te muestran los detalles de cada celda
@@ -461,6 +556,26 @@ class Labyrinth{
     // le mandas el nombre del elemento junto a su coordenada
     getLabyrinthElement(name, i, j){
         return document.getElementById(name + i + "," + j);
+    }
+
+    hideButtons(){
+        // cambiar el estilo de los botones a none
+        this.terrainsFormButton.style.display = "none";
+        this.changeFileButton.style.display = "none";
+        this.charactersFormButton.style.display = "none";
+        this.startLabyrinthButton.style.display = "none";
+    }
+
+    showButtons(){
+        // cambiar el estilo de los botones a none
+        this.terrainsFormButton.style.display = "inline-block";
+        this.changeFileButton.style.display = "inline-block";
+        this.charactersFormButton.style.display = "inline-block";
+        this.startLabyrinthButton.style.display = "inline-block";
+    }
+
+    showStartLabyrinthButton(){
+        this.startLabyrinthButton.style.display = "inline-block";
     }
 }
 
