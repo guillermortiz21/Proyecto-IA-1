@@ -1,8 +1,6 @@
 .gatito{
-    height: 75px;
-    width: 50px;
-    background: url("cat_black2.png");
-    margin: 0 auto;
-    left: 20%;
-    
+    margin-left: 20%;
+    margin-bottom: 5%;
+    margin-right: 20px;
+    align-self: center
 }

@@ -26,7 +26,6 @@ class Characters{
         this.characterFormModal.style.display = "block";
         var tableData = ""
         var NA = " N/A ";
-        //this.characterFormTable.innerHTML = '<div class="gatito"></div>'
         this.characterFormTable.innerHTML = '<tr><th>Terrenos</th><th>Colores</th><th>Configuraciones</th></tr>' // limpiar formulario.
 
         for(let i=0; i < this.terrainsValues.length; i++){

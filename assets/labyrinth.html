@@ -38,19 +38,13 @@
     <div id="characterForm" class="modal">
         <div class="modal-content">
             <p>Formulario de seres</p>
-            <canvas width="50px" height="75px" id="gatito"></canvas>
-            <script>
-                var miCanvas = document.getElementById("gatito");
-                var ctx = miCanvas.getContext("2d");
-                var miImagen = new Image();
-                miImagen.src = "cat_black2.png";
-                miImagen.onload = function(){
-                    ctx.drawImage(miImagen,0,0);
-                }
-
-            </script>
-
-
+            <!--<p><img src="cat_black2.png" width="150px" height="75px"></p>-->
+            <div align="center">
+                <img src="catBlack.png" >
+                <img src="catBrown.png">
+                <img src="catWhite.png">
+                <img src="catYellow.png">
+            </div>
             <table id="charactersFormTable">
                 <tr>
                     <th>Terrenos</th>
