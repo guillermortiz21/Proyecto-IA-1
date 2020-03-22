@@ -1,17 +1,17 @@
 Laberinto
 	--Pintar Laberinto.
-	Mostrar datos de cada coordenada en Hover.
-		Tipo de terreno
-		Si es estado inicial
-		Si es estado final
-		Número de visita. (El estado inicial es la visita 1)
-	Manera de elegir estado incial
-		Se puede cambiar en cualquier momento
-	Manera de elegir estado final
-		Se puede cambiar en cualquier momento
+	--Mostrar datos de cada coordenada en Hover.
+		--Tipo de terreno
+		--Si es estado inicial
+		--Si es estado final
+		--Número de visita. (El estado inicial es la visita 1)
+	--Manera de elegir estado incial
+		--Se puede cambiar en cualquier momento
+	--Manera de elegir estado final
+		--Se puede cambiar en cualquier momento
 	Que todas las casillas muestren sus números de visita.
-	Mostrar cuál es el estado inicial
-	Mostrar cuál es el estado final.
+	--Mostrar cuál es el estado inicial
+	--Mostrar cuál es el estado final.
 	Mostrar cuál es el estado actual. (Se muestra donde está el ser.)
 	--Mostrar letras en las columnas (Empezando por la A) y números en las filas (Empezando por el 1).
 

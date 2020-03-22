@@ -1,7 +1,6 @@
 import FileParser from './fileParser.js';
 import TerrainForm from './terrainForm.js';
 
-
 class Labyrinth{
     constructor(){
         this.labFile = ""; // string que guarda el contenido del archivo en crudo
@@ -82,6 +81,9 @@ class Labyrinth{
             // hay que recuperar dichos valores
             this.terrainValues = this.terrainForm.getTerrrainValues();
 
+            // nuevo laberinto, borramos la información de estados inicial y final
+            this.clearstatesVars();
+
             // tenemos los datos de los terrenos. Ya podemos dibujar el laberinto!
             this.drawLabyrinth();
         }
@@ -105,7 +107,7 @@ class Labyrinth{
             labyrinthHtml += '<div id="leftCell' + parseInt(i+1) + '" class="leftCell">' + parseInt(i+1) + '</div>';
             for(let j = 0; j < this.fileArray[i].length; j++){
                 // iniciar celda con su id y su clase celda
-                labyrinthHtml += '<div id="cell' + i + ',' + j + '" class="cell ' + this.fileArray[i][j] + ' popup">'
+                labyrinthHtml += '<div id="cell' + i + ',' + j + '" class="cell ' + this.fileArray[i][j] + ' popup hover">'
                 
                 // div para mostrar si es inicial (por defecto hay display none)
                 labyrinthHtml += '<div class="initial">I</div>'
@@ -120,11 +122,19 @@ class Labyrinth{
                 labyrinthHtml += '<span class="popuptext" id="popup' + i + "," + j + '">'
                 
                 // ponder botones para setear inicial y final
-                labyrinthHtml += '<button id="popupButtonInitial' + i + "," + j + '">Seleccionar inicial</button>';
-                labyrinthHtml += '<button id="popupButtonFinal' + i + "," + j + '">Seleccionar final</button>';
+                labyrinthHtml += '<button id="popupButtonInitial' + i + "," + j + '" class="popupButton">Seleccionar inicial</button>';
+                labyrinthHtml += '<button id="popupButtonFinal' + i + "," + j + '" class="popupButton">Seleccionar final</button>';
+
+                // cerrar popup
+                labyrinthHtml += '</span>'
+
+                // crear popup del hover
+                labyrinthHtml += '<span class="hoverText" id="hover' + i + "," + j + '">'
+
+                // cerrar popup del hover
+                labyrinthHtml += '</span>'
 
                 // cerrar elemento
-                labyrinthHtml += '</span>'
                 labyrinthHtml += '</div>';
             }
             labyrinthHtml += "<br>"
@@ -141,6 +151,7 @@ class Labyrinth{
 
         // agregar a cada celda un evento de click para seleccionarla como inicial o final
         this.addCellsOnClickEvents();
+        this.addHovers();
     }
 
     addCellsOnClickEvents(){
@@ -168,6 +179,8 @@ class Labyrinth{
                 cell.onclick = function(event){
                     let popup = document.getElementById("popup" + i + "," + j);
                     popup.classList.toggle("show");
+                    let hover = document.getElementById("hover" + i + "," + j);
+                    hover.classList.toggle("hide");
                 }
             }
         }
@@ -210,6 +223,101 @@ class Labyrinth{
             row: i,
             column: j
         }
+    }
+
+    addHovers(){
+        // iterar a través de todo el laberinto
+        for(let i=0; i < this.fileArray.length; i++){
+            for(let j=0; j < this.fileArray[i].length; j++){
+                
+                const element = document.getElementById("cell" + i + "," + j);
+                const originalColor = element.style.backgroundColor;
+
+                var myTimeout = null;
+                element.onmouseover = function(){
+                    // cambiar el color en el hover
+                    element.style.backgroundColor = "#F7D8AA"
+                    myTimeout = setTimeout(function(){
+                        // después de 1 segundo de hover, mostrar
+                        // los detalles de la celda
+                        let hover = document.getElementById("hover" + i + "," + j);
+                        let hoverText = this.getCellDetails(i,j);
+                        hover.innerHTML = hoverText;
+                        hover.style.visibility = "visible";
+                    }.bind(this),500);
+                }.bind(this);
+
+                element.onmouseout = function(){
+                    // regresar al color original
+                    element.style.backgroundColor = originalColor;
+                    let hover = document.getElementById("hover" + i + "," + j);
+                    hover.style.visibility = "hidden";
+                    // matar el setTimeout para que no se muestren los
+                    // detalles de la celda.
+                    clearTimeout(myTimeout);
+                }   
+            }
+        }
+    }
+
+    getCellDetails(i,j){
+        // si es inicial
+        // si es final
+        // terreno nombre
+        // número de visitas
+        const cell = document.getElementById("cell" + i + ',' + j);
+        var initialStr = "";
+        var finalStr = "";
+        var terrainStr = "";
+        var visitsStr = "";
+        // determinar si es inicial
+        if(Object.keys(this.initialState).length !== 0){ 
+            if(this.initialState.row === i && this.initialState.column === j){
+                initialStr = "Estado inicial: Sí";
+            }else{
+                initialStr = "Estado final: No";
+            }
+        }else{
+            // no hay nada en la variable de estado inicial
+            initialStr = "Estado inicial: No";
+        }
+
+        // determinar si es final
+        if(Object.keys(this.finalState).length !== 0){ 
+            if(this.finalState.row === i && this.finalState.column === j){
+                finalStr = "Estado final: Sí";
+            }else{
+                finalStr = "Estado final: No";
+            }
+        }else{
+            // no hay nada en la variable de estado final
+            finalStr = "Estado final: No";
+        }
+
+        const terrainId = this.fileArray[i][j];
+        const terrain = this.findTerrain(terrainId);
+        terrainStr = `Terreno: ${terrain.name}`;
+
+        const visit = cell.getElementsByClassName("visit")[0].innerHTML;
+        visitsStr = `Visitas: ${visit}`;
+        const message = `${initialStr}<br>${finalStr}<br>${terrainStr}<br>${visitsStr}`;
+        return message;
+    }
+
+    findTerrain(id){
+        var terrain = {}
+        for(let i = 0; i < this.terrainValues.length; i++){
+            if(this.terrainValues[i].id == id){
+                terrain = this.terrainValues[i];
+                break;
+            }
+        }
+        return terrain;
+    }
+
+    clearstatesVars(){
+        this.initialState = {};
+        this.finalState = {};
     }
 }
 

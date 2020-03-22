@@ -60,9 +60,13 @@ input[type="file"] {
 
 .visit{
     float: right;
+    margin-right: 5px;
+    margin-top: 2px ;
 }
 
 .initial, .final{
+    margin-left: 5px;
+    margin-top: 2px;
     float: left;
     display: none;
 }
