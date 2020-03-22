@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./styles/labyrinth.css">
     <link rel="stylesheet" href="./styles/popups.css">
     <link rel="stylesheet" href="./styles/character.css">
+    <link rel="stylesheet" href="./styles/characters.css">
     <script type="module" src="./labyrinthStart.js"></script>
     <title>Proyecto IA</title>
 </head>
@@ -39,6 +40,19 @@
     <div id="characterForm" class="modal">
         <div class="modal-content">
             <p>Formulario de seres</p>
+            <canvas width="50px" height="75px" id="gatito"></canvas>
+            <script>
+                var miCanvas = document.getElementById("gatito");
+                var ctx = miCanvas.getContext("2d");
+                var miImagen = new Image();
+                miImagen.src = "cat_black2.png";
+                miImagen.onload = function(){
+                    ctx.drawImage(miImagen,0,0);
+                }
+
+            </script>
+
+
             <table id="charactersFormTable">
                 <tr>
                     <th>Terrenos</th>

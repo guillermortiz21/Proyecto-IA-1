@@ -46,6 +46,18 @@ table td, table tr{
   margin-right: auto;
 }
 
+.checkBox{
+  display: none;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.textChange{
+  size: 5;
+  max-width: 7;
+}
+
 td{
   width: auto;
   margin-left: auto;

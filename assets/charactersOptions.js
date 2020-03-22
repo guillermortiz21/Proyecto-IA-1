@@ -66,6 +66,23 @@ const characters = [
                 weight: 0
             }
         ]
+    },
+    {
+        name: "Push",
+        weights:[
+            {
+                terrainId: 0,
+                weight: 0
+            },
+            {
+                terrainId: 0,
+                weight: 0
+            },
+            {
+                terrainId: 0,
+                weight: 0
+            }
+        ]
     }
 ]
 

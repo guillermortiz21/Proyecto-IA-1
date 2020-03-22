@@ -10,6 +10,7 @@ class Characters{
         this.characterFormButton = document.getElementById("submitCharactersFormButton"); // botón para procesas los datos ingresados de terrenos.
         this.charactersValues = []; // arreglo que guarda diccionarios con id de terreno, y el nombre y color seleccionados para ese id
         this.setListenters(); // para escuchar el click del botón
+        this.maxCharacters = 5;
     }
 
     getCharactersValues(){
@@ -24,25 +25,38 @@ class Characters{
     drawCharactersForm(){
         this.characterFormModal.style.display = "block";
         var tableData = ""
-        this.characterFormTable.innerHTML = '<tr><th>Terrenos</th><th>Configuraciones</th></tr>' // limpiar formulario.
-        this.characterFormTable.innerHTML = '<tr class="gatito"></tr>'
+        var NA = " N/A ";
+        //this.characterFormTable.innerHTML = '<div class="gatito"></div>'
+        this.characterFormTable.innerHTML = '<tr><th>Terrenos</th><th>Colores</th><th>Configuraciones</th></tr>' // limpiar formulario.
 
-        for(let i=0; i < this.terrainsIds.length; i++){
+        for(let i=0; i < this.terrainsValues.length; i++){
             let terrainsName = this.terrainsValues[i].name;
-            //let terrainsColor = this.terrainsValues[i].color;
+            let terrainsColor = this.terrainsValues[i].color;
             tableData =  "";
-            tableData += '<tr terr="'+ terrainsName +'">';
-            tableData += '<td terr="leftCell' + terrainsName + '">' + terrainsName+ '</td>';
+            tableData += '<tr terr="'+ terrainsName + terrainsColor + '">';
+            //tableData += '<td terr="leftCell' + terrainsName + terrainsColor +'">' + terrainsName+ terrainsColor + '<class="colorBox' + terrainsColor + '"></td>';
 
-            tableData += '<td class="colorsList"><div class="radioContainer">';
-            for(let j=0; j<this.terrainsValues.length; j++){
-               // tableData += '<div class="radioContainer"><input type="radio" id="terr" name="terr" value "N/A">';
-                tableData += '<div><input type="text" id="peso" name="peso" placeholder="peso"></div>';
+            tableData += '<td label for="terr' + terrainsName + '">' + terrainsName + '<td class="colorBox ' + terrainsColor + '"</td></label>'
+
+            tableData += '<td><div class="checkbox">';
+            for(let j=0; j<this.maxCharacters; j++){
+                tableData += '<class="checkbox"><input type="checkbox" id="terr" name="terr">';
+                tableData += '<label for="terr">' + NA + '</label>'; 
+                tableData += '<input type="text" id="peso" name="peso" placeholder="Peso" size="10" maxlength="4">';
+            }
+            tableData += '</td>';
+            tableData += '</tr>'
+            this.characterFormTable.innerHTML += tableData;
+        }
+        
+        //Para colorear los cuadritos de los terrenos
+        for(let j=0; j < this.terrainsValues.length; j++){
+            let elements = document.getElementsByClassName(this.terrainsValues[j].color);
+            for(let i = 0; i < elements.length; i++){
+                elements[i].style.backgroundColor = this.terrainsValues[j].color;
             }
         }
-        tableData += '</div></td>';
-        tableData += '</tr>'
-        this.characterFormTable.innerHTML += tableData;
+        
     }
 
     characterButtonClick(event){
