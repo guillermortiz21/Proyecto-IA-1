@@ -104,12 +104,26 @@ class Labyrinth{
             // mostrar número de fila
             labyrinthHtml += '<div id="leftCell' + parseInt(i+1) + '" class="leftCell">' + parseInt(i+1) + '</div>';
             for(let j = 0; j < this.fileArray[i].length; j++){
-                labyrinthHtml += '<div id="cell' + i + ',' + j + '" class="cell ' + this.fileArray[i][j] + ' popup">&nbsp'
+                // iniciar celda con su id y su clase celda
+                labyrinthHtml += '<div id="cell' + i + ',' + j + '" class="cell ' + this.fileArray[i][j] + ' popup">'
+                
+                // div para mostrar si es inicial (por defecto hay display none)
+                labyrinthHtml += '<div class="initial">I</div>'
+                
+                // div para mostrar si es final (por defecto hay display none)
+                labyrinthHtml += '<div class="final">F</div>'
+                
+                // div para el número de visitas
+                labyrinthHtml += '<div class="visit">0</div>'
+
                 // poner aqui el popup para seleccionar si esta casilla es estado incial o final
                 labyrinthHtml += '<span class="popuptext" id="popup' + i + "," + j + '">'
+                
                 // ponder botones para setear inicial y final
                 labyrinthHtml += '<button id="popupButtonInitial' + i + "," + j + '">Seleccionar inicial</button>';
                 labyrinthHtml += '<button id="popupButtonFinal' + i + "," + j + '">Seleccionar final</button>';
+
+                // cerrar elemento
                 labyrinthHtml += '</span>'
                 labyrinthHtml += '</div>';
             }
@@ -160,19 +174,42 @@ class Labyrinth{
     }
 
     setInitialState(i,j){
+        // borramos del laberinto el inicial anterior
+        if(Object.keys(this.initialState).length !== 0){ // revisamos que haya un inicial anterior
+            // ya se había seleccionado un inicial, hay que quitarlo
+            // buscamos en los hijos de la celda i,j el div con class initial
+            const cell = document.getElementById("cell" + this.initialState.row + ',' + this.initialState.column);
+            const initialDiv = cell.getElementsByClassName("initial");
+            initialDiv[0].style.display = "none";
+        }
+        // dibujamos el nuevo inicial
+        const cell = document.getElementById("cell" + i + ',' + j);
+        const initialDiv = cell.getElementsByClassName("initial");
+        initialDiv[0].style.display = "block";
+
         this.initialState = {
             row: i,
             column: j
         }
-        console.log(this.initialState);
     }
 
     setFinallState(i,j){
+        // borramos del laberinto el final anterior
+        if(Object.keys(this.finalState).length !== 0){ // revisamos que haya un inicial anterior
+            // ya se había seleccionado un inicial, hay que quitarlo
+            // buscamos en los hijos de la celda i,j el div con class initial
+            const cell = document.getElementById("cell" + this.finalState.row + ',' + this.finalState.column);
+            const finalDiv = cell.getElementsByClassName("final");
+            finalDiv[0].style.display = "none";
+        }
+        // dibujamos el nuevo final
+        const cell = document.getElementById("cell" + i + ',' + j);
+        const finalDiv = cell.getElementsByClassName("final");
+        finalDiv[0].style.display = "block";
         this.finalState = {
             row: i,
             column: j
         }
-        console.log(this.finalState);
     }
 }
 

@@ -21,6 +21,11 @@ body{
     border-width: 2px;
     border-color: black;
     background-color: green;
+    vertical-align: top;
+}
+
+.leftCell{
+    vertical-align: top;
 }
 
 .labyrinth{
@@ -46,4 +51,18 @@ input[type="file"] {
     font: 400 13.3333px Arial;
     align-items: flex-start;
     box-sizing: border-box;
+}
+
+.visit, .initial, .final{
+    vertical-align: top;
+    width: min-content;
+}
+
+.visit{
+    float: right;
+}
+
+.initial, .final{
+    float: left;
+    display: none;
 }
