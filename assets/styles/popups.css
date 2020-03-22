@@ -1,9 +1,9 @@
-.popup{
+.popup, .hover{
     position: relative;
     display: inline-block;
 }
   
-.popup .popuptext {
+.popup .popuptext, .hover .hoverText {
     visibility: hidden;
     width: 160px;
     background-color: #555;
@@ -13,13 +13,20 @@
     padding: 8px 0;
     position: absolute;
     z-index: 1;
-    bottom: 125%;
     left: 50%;
     margin-left: -80px;
 }
 
+.popup .popuptext{
+    bottom: 125%;
+}
 
-.popup .show {
+.hover .hoverText {
+    bottom: -200%;
+}
+
+
+.popup .show{
     visibility: visible;
 }
 
@@ -39,34 +46,4 @@
     align-items: flex-start;
     box-sizing: border-box;
     margin: 10px;
-}
-
-
-.hover{
-    position: relative;
-    display: inline-block;
-}
-  
-.hover .hoverText {
-    visibility: hidden;
-    width: 160px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: -200%;
-    left: 50%;
-    margin-left: -80px;
-}
-
-
-.hover .show {
-    visibility: visible;
-}
-
-.hover .hide{
-    visibility: hidden;
 }
