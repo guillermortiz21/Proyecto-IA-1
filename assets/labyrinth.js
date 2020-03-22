@@ -417,7 +417,6 @@ class Labyrinth{
     getTerrainWeight(i,j){
         var weight = null;
         // vemos si hay un ser actual
-        console.log(this.currentCharacter);
         if(Object.keys(this.currentCharacter).length !== 0){
             // obtenemos el id de terreno de la celda i,j
             const terrainId = this.fileArray[i][j];
