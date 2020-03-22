@@ -15,7 +15,7 @@ class Labyrinth{
         this.currentState = {};
         this.finalState = {};
         this.characters = {};
-        this.currentCharacter = {};
+        this.currentCharacter = characterMocks[0];
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
@@ -341,55 +341,99 @@ class Labyrinth{
 
     // función para hacer que la celda i,j sea el estado inicial
     setInitialState(i,j){
-        // borramos del laberinto el inicial anterior
-        if(Object.keys(this.initialState).length !== 0){ // revisamos que haya un inicial anterior
-            // ya se había seleccionado un inicial, hay que quitarlo
-            // buscamos en los hijos de la celda i,j el div con class initial
-            const cell = this.getLabyrinthElement("cell", this.initialState.row, this.initialState.column);
+        // primero validamos que el ser actual pueda estar en la celda i,j
+        if(this.characterCanBeInCell(i,j)){
+            // el ser puede estar en esta celda.
+            // borramos del laberinto el inicial anterior
+            if(Object.keys(this.initialState).length !== 0){ // revisamos que haya un inicial anterior
+                // ya se había seleccionado un inicial, hay que quitarlo
+                // buscamos en los hijos de la celda i,j el div con class initial
+                const cell = this.getLabyrinthElement("cell", this.initialState.row, this.initialState.column);
+                const initialDiv = cell.getElementsByClassName("initial");
+                // initialDiv es un arreglo con todos los hijos de cell que tengan clase initial
+                // solo tiene un hijo con clase initial por lo que accedo al índice cero.
+                initialDiv[0].style.display = "none";
+            }
+            // ya se eliminó el inicial anterior (si lo hubo)
+            // dibujamos el nuevo inicial
+            // obtenos la celda que será nuestra nueva inicial
+            const cell = this.getLabyrinthElement("cell", i, j);
+            // obtenemos su hijo con clase initial y lo mostramos.
             const initialDiv = cell.getElementsByClassName("initial");
-            // initialDiv es un arreglo con todos los hijos de cell que tengan clase initial
-            // solo tiene un hijo con clase initial por lo que accedo al índice cero.
-            initialDiv[0].style.display = "none";
+            initialDiv[0].style.display = "block";
+    
+            // guardamos esa fila y esa columna en nuestra variable de estado inicial
+            this.initialState = {
+                row: i,
+                column: j
+            }
+        }else{
+            // el ser no puede tener este estado inicial
+            alert(`El ser no puede estar en la celda ${String.fromCharCode(65+i)},${j+1}`);
+            return;
         }
-        // ya se eliminó el inicial anterior (si lo hubo)
-        // dibujamos el nuevo inicial
-        // obtenos la celda que será nuestra nueva inicial
-        const cell = this.getLabyrinthElement("cell", i, j);
-        // obtenemos su hijo con clase initial y lo mostramos.
-        const initialDiv = cell.getElementsByClassName("initial");
-        initialDiv[0].style.display = "block";
+    }
 
-        // guardamos esa fila y esa columna en nuestra variable de estado inicial
-        this.initialState = {
-            row: i,
-            column: j
-        }
+    characterCanBeInCell(i,j){
+        const weight = this.getTerrainWeight(i,j);
+        //console.log(weight);
+        return weight >= 0;
     }
 
     // función para hacer que la celda i,j sea el estado final
     setFinallState(i,j){
-        // borramos del laberinto el final anterior
-        if(Object.keys(this.finalState).length !== 0){ // revisamos que haya un final anterior
-            // ya se había seleccionado un final, hay que quitarlo
-            // buscamos en los hijos de la celda i,j el div con class final
-            const cell = this.getLabyrinthElement("cell", this.finalState.row, this.finalState.column);
+        // primero verificamos si el ser puede estar en la celda i,j
+        if(this.characterCanBeInCell(i,j)){
+            // borramos del laberinto el final anterior
+            if(Object.keys(this.finalState).length !== 0){ // revisamos que haya un final anterior
+                // ya se había seleccionado un final, hay que quitarlo
+                // buscamos en los hijos de la celda i,j el div con class final
+                const cell = this.getLabyrinthElement("cell", this.finalState.row, this.finalState.column);
+                const finalDiv = cell.getElementsByClassName("final");
+                // final es un arreglo con todos los hijos de cell que tengan clase final
+                // solo tiene un hijo con clase final por lo que accedo al índice cero.
+                finalDiv[0].style.display = "none";
+            }
+            // ya se eliminó el final anterior (si lo hubo)
+            // dibujamos el nuevo final
+            // obtenos la celda que será nuestra nueva final
+            const cell = this.getLabyrinthElement("cell", i, j);
+            // obtenemos su hijo con clase initial y lo mostramos.
             const finalDiv = cell.getElementsByClassName("final");
-            // final es un arreglo con todos los hijos de cell que tengan clase final
-            // solo tiene un hijo con clase final por lo que accedo al índice cero.
-            finalDiv[0].style.display = "none";
+            finalDiv[0].style.display = "block";
+            // guardamos esa fila y esa columna en nuestra variable de estado final
+            this.finalState = {
+                row: i,
+                column: j
+            }
+        }else{
+            // el ser no puede tener este estado final
+            alert(`El ser no puede estar en la celda ${String.fromCharCode(65+j)},${i+1}`);
+            return;
         }
-        // ya se eliminó el final anterior (si lo hubo)
-        // dibujamos el nuevo final
-        // obtenos la celda que será nuestra nueva final
-        const cell = this.getLabyrinthElement("cell", i, j);
-        // obtenemos su hijo con clase initial y lo mostramos.
-        const finalDiv = cell.getElementsByClassName("final");
-        finalDiv[0].style.display = "block";
-        // guardamos esa fila y esa columna en nuestra variable de estado final
-        this.finalState = {
-            row: i,
-            column: j
+    }
+
+    // función que retorna cuanto le cuesta al ser actual pasar por la celda i,j
+    getTerrainWeight(i,j){
+        var weight = null;
+        // vemos si hay un ser actual
+        console.log(this.currentCharacter);
+        if(Object.keys(this.currentCharacter).length !== 0){
+            // obtenemos el id de terreno de la celda i,j
+            const terrainId = this.fileArray[i][j];
+            // obtener cuánto le cuesta al personaje pasar por ese terrainId
+            const weights = this.currentCharacter.weights;
+            for(let i = 0; i < weights.length; i++){
+                // buscamos el id dentro de los pesos del personaje
+                if(weights[i].terrainId == terrainId){
+                    weight = weights[i].weight;
+                    break;
+                }
+            }
         }
+        // si no hubo un ser actual, retorno nulo
+        // si hubo, retorno cuanto le cuesta al ser actual pasar por la celda i,j
+        return weight;
     }
 
     statesSet(){
