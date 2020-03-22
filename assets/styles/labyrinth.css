@@ -37,6 +37,10 @@ input[type="file"] {
     display: none;
 }
 
+.buttons{
+    display: flex;
+}
+
 .topButtons{
     background-color: #FCFCFC;
     border-style: solid;
@@ -44,10 +48,10 @@ input[type="file"] {
     border-color: black;
     height: 50px;
     display: inline-block;
-    width: 100px;
+    width: 100%;
     vertical-align: top;
     padding: 10px;
-    margin: auto;
+    margin: 10px;
     text-align: center;
     font: 400 13.3333px Arial;
     align-items: flex-start;
