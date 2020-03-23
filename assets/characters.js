@@ -19,6 +19,10 @@ class Characters{
         this.charactersNames = document.getElementById("charactersNames");
     }
 
+    setPainted(painted){
+        this.painted = painted;
+    }
+
     getCharactersValues(){
         return this.charactersValues;
     }

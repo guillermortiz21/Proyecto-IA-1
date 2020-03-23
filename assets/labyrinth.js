@@ -136,6 +136,7 @@ class Labyrinth{
         this.terrainForm = new TerrainForm();
         //this.terrainForm.setTerrainsIds(terrainsIds);
         this.terrainForm.drawTerrainsForm();
+        this.characterForm.setPainted(false);
     }
 
     startLabyrinth(){
