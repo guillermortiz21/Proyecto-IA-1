@@ -4,15 +4,6 @@ import charactersOptions from './charactersOptions.js'
 class Characters{
     constructor(){
         this.painted = false;
-        /*this.terrainsIds = Labyrinth.getTerrainsIds(); //Obtiene los id's de los terrenos
-        this.terrainsValues = Labyrinth.getTerrrainValues();//Obtiene diccionario de terrenos
-        this.characterFormModal = document.getElementById("characterForm"); //Elemento html del modal de terrenos
-        this.characterFormTable = document.getElementById("charactersFormTable").getElementsByTagName("tbody")[0]; //cuerpo de da tabla donde se seleccionan los terrenos
-        this.characterFormButton = document.getElementById("submitCharactersFormButton"); // botón para procesas los datos ingresados de terrenos.
-        this.charactersValues = []; // arreglo que guarda diccionarios con id de terreno, y el nombre y color seleccionados para ese id
-        this.currentCharacter = {};
-        this.maxCharacters = 5;
-        this.setListenters(); // para escuchar el click del botón*/
     }
 
     setVariables(){
@@ -25,6 +16,7 @@ class Characters{
         this.currentCharacter = {};
         this.maxCharacters = 5;
         this.setListenters(); // para escuchar el click del botón
+        this.charactersNames = document.getElementById("charactersNames");
     }
 
     getCharactersValues(){
@@ -39,10 +31,16 @@ class Characters{
     drawCharactersForm(){
         this.characterFormModal.style.display = "block";
         if(!this.painted){
+            var tableNames = "";
+            this.charactersNames.style.display = "inline-flex";
+            tableNames += '<tr><th class="names">Nera</th><th class="names">Ray</th><th class="names">Meeko</th>';
+            tableNames += '<th class="names">Lepuchi</th><th class="names">Ares</th></tr>';
+            this.charactersNames.innerHTML += tableNames;
+    
             var tableData = ""
             var NA = " N/A ";
             this.characterFormTable.innerHTML = '<tr><th>Terrenos</th><th>Colores</th><th>Configuraciones</th></tr>' // limpiar formulario.
-    
+
             for(let i=0; i < this.terrainsValues.length; i++){
                 let terrainsId = this.terrainsValues[i].id;
                 let terrainsName = this.terrainsValues[i].name;
@@ -97,6 +95,7 @@ class Characters{
         }
     }
 
+        
     characterButtonClick(event){
         this.charactersValues = [];
         if(this.validateCharacterConfig()){
