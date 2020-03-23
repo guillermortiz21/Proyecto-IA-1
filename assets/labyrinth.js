@@ -2,7 +2,6 @@ import FileParser from './fileParser.js';
 import TerrainForm from './terrainForm.js';
 import Characters from './characters.js';
 import LabyrinthMovement from './labyrinthMovement.js';
-import characterMocks  from './mocks/characters.js'
 
 
 class Labyrinth{
@@ -15,7 +14,7 @@ class Labyrinth{
         this.currentState = {};
         this.finalState = {};
         this.characters = {};
-        this.currentCharacter = characterMocks[0];
+        this.currentCharacter = {}
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
@@ -41,6 +40,7 @@ class Labyrinth{
         this.terrainsFormObserver = new MutationObserver(this.terrainFormObserverCallback.bind(this)); 
 
         this.labyrinthMovement = new LabyrinthMovement();
+        this.characterForm = new Characters();
         
     }
 
@@ -68,8 +68,18 @@ class Labyrinth{
         return this.characters;
     }
 
+    setCharacters(characters){
+        this.characters = characters;
+        console.log(this.characters);
+    }
+
     getCurrentCharacter(){
         return this.currentCharacter;
+    }
+
+    setCurrentCharacter(currentCharacter){
+        this.currentCharacter = currentCharacter;
+        console.log(this.currentCharacter);
     }
 
     getInitialState(){
@@ -116,7 +126,8 @@ class Labyrinth{
     }
 
     drawCharactersForm(){
-        this.characterForm = new Characters();
+        //this.characterForm = new Characters();
+        this.characterForm.setVariables();
         this.characterForm.drawCharactersForm();
     }
 
@@ -128,13 +139,72 @@ class Labyrinth{
     }
 
     startLabyrinth(){
-        // desactivar los botones mientras se ejecuta el laberinto
-        this.hideButtons();
-        // mostrar botón para detener el laberinto
-        this.finishLabyrinthButton.style.display = "inline-block";
-        this.characters = characterMocks;
-        this.currentCharacter = characterMocks[0];
-        this.labyrinthMovement.startLabyrinth();
+        // validar que pueda iniciar el laberinto
+        if(this.canStartLabyrinth()){
+            // desactivar los botones mientras se ejecuta el laberinto
+            this.hideButtons();
+            // mostrar botón para detener el laberinto
+            this.finishLabyrinthButton.style.display = "inline-block";
+            this.labyrinthMovement.startLabyrinth();
+        }
+    }
+
+    canStartLabyrinth(){
+        // botón para iniciar el laberinto
+        // para iniciarlo primero deben de pasar las siguientes cosas:
+        // se debe de elegir un archivo
+        // se deben elegir los terrenos (this.terrainValues no vacío) es un array
+        // se deben configurar los seres (this.characters no vacío) es un array
+        // se debe elegir un ser para jugar (this.currentCharacter no vacío) es un diccionario
+        // debe haber un inicial y un final (this.finalState y this.initialState no vacíos) son diccionario
+        // que el ser pueda estar en el inicial y en el final
+        
+        var valid = true;
+        var error = "Se encontraron los siguientes errores:\n"
+
+        // que los terrenos estén configurados
+        if(this.terrainValues.length === 0){
+            error += "No se han configurado los terrenos\n";
+            valid = false;
+        }
+
+        // que los personajes estén configurados
+        if(this.characters.length === 0){
+            error += "No se han configurado los seres\n";
+            valid = false;
+        }
+        
+        // que se haya elegido un personaje para jugar
+        console.log(this.currentCharacter);
+        if(Object.keys(this.currentCharacter).length === 0){
+            error += "No se ha seleccionado un ser para jugar\n";
+            valid = false;
+        }
+
+        // que haya estado inicial y final
+        if(!this.statesSet()){
+            error += "No se han seleccionado el estado inicial o el final\n";
+            valid = false;
+        }else{
+            // que el ser pueda estar en los estados inicial y final
+            if(!this.characterCanBeInInitialAndFinalStates()){
+                error += "El ser seleccionado no puede estar en el estado inicial o el final\n";
+                valid = false;
+            }
+        }
+
+
+        if(!valid){
+            alert(error);
+            return false;
+        }
+        return true;
+    }
+
+    characterCanBeInInitialAndFinalStates(){
+        console.log(this.initialState);
+        console.log(this.finalState);
+        return (this.characterCanBeInCell(this.initialState.row, this.initialState.column) && this.characterCanBeInCell(this.finalState.row, this.finalState.column));
     }
 
     drawVisit(i, j, visitNumber){

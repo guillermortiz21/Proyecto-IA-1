@@ -24,6 +24,7 @@ class LabyrinthMovement{
 
     startLabyrinth(){
         this.setVariables();
+        console.log(this.character);
         this.currentState = {
             row: this.initialState.row,
             column: this.initialState.column
