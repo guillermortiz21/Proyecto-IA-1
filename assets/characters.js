@@ -36,9 +36,10 @@ class Characters{
         this.characterFormModal.style.display = "block";
         if(!this.painted){
             var tableNames = "";
-            this.charactersNames.style.display = "inline-flex";
-            tableNames += '<tr><th class="names">Nera</th><th class="names">Ray</th><th class="names">Meeko</th>';
-            tableNames += '<th class="names">Lepuchi</th><th class="names">Ares</th></tr>';
+            //this.charactersNames.style.display = "inline-flex";
+            this.charactersNames.innerHTML = "";
+            tableNames += '<tr><th class="names">   </th><th class="names"> Nera </th><th class="names"> Ray </th><th class="names"> Meeko </th>';
+            tableNames += '<th class="names"> Lepuchi </th><th class="names"> Ares </th></tr>';
             this.charactersNames.innerHTML += tableNames;
     
             var tableData = ""
