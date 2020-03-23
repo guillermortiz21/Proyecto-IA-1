@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/modalDialog.css">
+    <link rel="stylesheet" href="./styles/labyrinth.css">
+    <link rel="stylesheet" href="./styles/popups.css">
+    <link rel="stylesheet" href="./styles/character.css">
+    <link rel="stylesheet" href="./styles/characters.css">
+    <script type="module" src="./labyrinthStart.js"></script>
+    <title>Proyecto IA</title>
+</head>
+<body>
+    <div class="buttons">
+        <button type="button" id="changeFileButton" class="topButtons">Cambiar archivo</button>
+        <button type="button" id="terrainsFormButton" class="topButtons">Modificar Terrenos</button>
+        <button type="button" id="charactersFormButton" class="topButtons hiddenButton">Modificar seres</button>
+        <button type="button" id="startLabyrinthButton" class="topButtons hiddenButton">Iniciar laberinto</button>
+        <button type="button" id="finishLabyrinthButton" class="topButtons hiddenButton">Finalizar laberinto</button>
+    </div>
+    <h1>Laberinto</h1>
+    
+    <!-- Modal para la selección de terrenos -->
+    <div id="terrainForm" class="modal">
+        <div class="modal-content">
+            <p style="text-align: center">Formulario de terrenos</p>
+            <table id="terrainFormTable">
+                <tr>
+                    <th>Id</th>
+                    <th>Terreno</th>
+                </tr>
+            </table>
+            <button type="button" id="submitTerrainsFormButton" class="submitButton">Guardar terrenos</button>
+        </div>
+    </div>
+
+
+    <!-- Modal para la selección de seres -->
+    <div id="characterForm" class="modal">
+        <div class="modal-content">
+            <p style="text-align: center">Formulario de seres</p>
+            <!--<p><img src="cat_black2.png" width="150px" height="75px"></p>-->
+            <div class="gatito">
+                <img src="./gatetes/catBlack.png" style="margin-left: 24%; margin-right: 10%;">
+                <img src="./gatetes/catOrange.png" style="margin-left: 2%; margin-right: 10%;">
+                <img src="./gatetes/catGray.png" style="margin-left: 2%; margin-right: 10%;">
+                <img src="./gatetes/catYellow.png" style="margin-left: 2%; margin-right: 10%;">
+                <img src="./gatetes/catGray2.png" style="margin-left: 2%;">
+            </div>
+            <table id="charactersNames"></table>
+            <table id="charactersFormTable">
+                <tr>
+                    <th>Terrenos</th>
+                    <th>Colores</th>
+                    <th>Configuraciones</th>
+                </tr>
+            </table>
+            <button type="button" id="submitCharactersFormButton" class="submitButton">Guardar seres</button>
+        </div>
+    </div>
+    
+    <div id="labyrinth" class="labyrinth"></div>
+    
+</body>
+</html>

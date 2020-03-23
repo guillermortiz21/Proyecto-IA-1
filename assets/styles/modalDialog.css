@@ -1,0 +1,107 @@
+/* The Modal (background) */
+.modal {
+    display: none;
+    margin: 0;
+    padding: 0;
+    z-index: 10;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+  /* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	width: 80%;
+}
+
+table{
+  width: 100%;
+  border: none;
+}
+
+table td, table tr{
+  border: 1px solid black;
+}
+
+.colorBox{
+  width: 15px;
+  height: 15px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  background-color: black;
+}
+
+.colorsList{
+  display: inline-flex;
+  width: 100%;
+}
+
+.radioContainer{
+  display: inline-flex;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checkBox{
+  display: none;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checkboxRow, .radioboxRow{
+  display: flex
+}
+
+.checkboxRowElement , .radioboxRowElement{
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.checkboxRowElement > input{
+  width: 70px
+}
+
+.textChange{
+  size: 5;
+  max-width: 7;
+}
+
+.names{
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  width: 150px;
+  text-align: right;
+  padding-left: 8%;
+  padding-right: 15%;
+}
+
+td{
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+.submitButton{
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+}   
