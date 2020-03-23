@@ -369,7 +369,7 @@ class Labyrinth{
             }
         }else{
             // el ser no puede tener este estado inicial
-            alert(`El ser no puede estar en la celda ${String.fromCharCode(65+i)},${j+1}`);
+            alert(`El ser no puede estar en la celda ${String.fromCharCode(65+j)},${i+1}`);
             return;
         }
     }

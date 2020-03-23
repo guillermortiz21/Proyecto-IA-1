@@ -32,21 +32,43 @@ class Characters{
             let terrainsName = this.terrainsValues[i].name;
             let terrainsColor = this.terrainsValues[i].color;
             tableData =  "";
-            tableData += '<tr terr="'+ terrainsName + terrainsColor + '">';
+            tableData += '<tr id="terr'+ terrainsName + terrainsColor + '">';
             //tableData += '<td terr="leftCell' + terrainsName + terrainsColor +'">' + terrainsName+ terrainsColor + '<class="colorBox' + terrainsColor + '"></td>';
 
-            tableData += '<td label for="terr' + terrainsName + '">' + terrainsName + '<td class="colorBox ' + terrainsColor + '"</td></label>'
+            tableData += '<td>' + terrainsName + '</td>'
+            tableData += '<td class="colorBox ' + terrainsColor + '"></td>'
 
-            tableData += '<td><div class="checkbox">';
-            for(let j=0; j<this.maxCharacters; j++){
-                tableData += '<class="checkbox"><input type="checkbox" id="terr" name="terr">';
-                tableData += '<label for="terr">' + NA + '</label>'; 
-                tableData += '<input type="text" id="peso" name="peso" placeholder="Peso" size="10" maxlength="4">';
-            }
+            tableData += '<td>'
+                tableData += '<div id="config' + terrainsName + '" class="checkboxRow">';
+                    for(let j=0; j<this.maxCharacters; j++){
+                        tableData += '<div class="checkboxRowElement">'
+                        tableData += '<input type="checkbox" style="width:10px" id="checkbox' + terrainsName + ',' + j + '">';//Mostrar el checkbox
+                        tableData += '<label for="checkbox' + terrainsName + ',' + j + '">' + NA + '</label>'; // label del checkbox (N/A)
+                        tableData += '<input type="number" id="weight' + terrainsName + ',' + j + '"placeholder="Peso" min="0">';
+                        tableData += '</div>'
+                    }
+                tableData += '</div>'
             tableData += '</td>';
             tableData += '</tr>'
             this.characterFormTable.innerHTML += tableData;
         }
+
+        // agregar table row para la elección del gato
+        tableData = "";
+        tableData += '<tr>';
+        // poner dos tables data para terreno y colores. Están vaciós porque no muestran nada
+        tableData += '<td></td><td></td>'
+        // agregar un radiobox group para seleccionar el personaje
+        tableData += '<td><div class="radioboxRow">'
+        for(let j=0; j < this.maxCharacters; j++){
+            tableData += '<div class="radioboxRowElement">';
+                tableData += '<input type="radio" id="radioCharacter' + j + '" name="radioCharacterSelection" value="character' + j + '">';
+                tableData += '<label for"radioCharacter' + j + '">Elegir</label>'
+            tableData += '</div>';
+        }
+        tableData += '</div></td>';
+        tableData += '</tr>';
+        this.characterFormTable.innerHTML += tableData;
         
         //Para colorear los cuadritos de los terrenos
         for(let j=0; j < this.terrainsValues.length; j++){

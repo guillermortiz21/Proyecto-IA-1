@@ -53,6 +53,25 @@ table td, table tr{
   margin-right: auto;
 }
 
+.checkboxRow, .radioboxRow{
+  display: flex
+}
+
+.checkboxRowElement , .radioboxRowElement{
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.checkboxRowElement > input{
+  width: 70px
+}
+
 .textChange{
   size: 5;
   max-width: 7;
@@ -62,6 +81,7 @@ td{
   width: auto;
   margin-left: auto;
   margin-right: auto;
+  text-align: center
 }
 
 th {
