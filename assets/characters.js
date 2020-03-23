@@ -11,6 +11,8 @@ class Characters{
         this.charactersValues = []; // arreglo que guarda diccionarios con id de terreno, y el nombre y color seleccionados para ese id
         this.setListenters(); // para escuchar el click del botón
         this.maxCharacters = 5;
+
+        this.charactersNames = document.getElementById("charactersNames");
     }
 
     getCharactersValues(){
@@ -24,6 +26,13 @@ class Characters{
 
     drawCharactersForm(){
         this.characterFormModal.style.display = "block";
+
+        var tableNames = "";
+        this.charactersNames.style.display = "inline-flex";
+        tableNames += '<tr><th class="names">Nera</th><th class="names">Ray</th><th class="names">Meeko</th>';
+        tableNames += '<th class="names">Lepuchi</th><th class="names">Ares</th></tr>';
+        this.charactersNames.innerHTML += tableNames;
+
         var tableData = ""
         var NA = " N/A ";
         this.characterFormTable.innerHTML = '<tr><th>Terrenos</th><th>Colores</th><th>Configuraciones</th></tr>' // limpiar formulario.

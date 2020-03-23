@@ -77,6 +77,15 @@ table td, table tr{
   max-width: 7;
 }
 
+.names{
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  width: 50px;
+  text-align: center;
+  padding-left: 30%;
+  padding-right: 25%;
+}
+
 td{
   width: auto;
   margin-left: auto;
