@@ -174,8 +174,7 @@ class Labyrinth{
             valid = false;
         }
         
-        // que se haya elegido un personaje para jugar
-        console.log(this.currentCharacter);
+        // que se haya elegido un personaje para jugar;
         if(Object.keys(this.currentCharacter).length === 0){
             error += "No se ha seleccionado un ser para jugar\n";
             valid = false;
@@ -202,8 +201,6 @@ class Labyrinth{
     }
 
     characterCanBeInInitialAndFinalStates(){
-        console.log(this.initialState);
-        console.log(this.finalState);
         return (this.characterCanBeInCell(this.initialState.row, this.initialState.column) && this.characterCanBeInCell(this.finalState.row, this.finalState.column));
     }
 
