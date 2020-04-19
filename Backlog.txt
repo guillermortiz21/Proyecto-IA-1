@@ -1,3 +1,9 @@
+Agregar imagen del gatito
+No borrar los seres cada vez que se configuran los terrenos
+Poder cerrar los formularios sin que estén llenos
+Mensaje de error en un archivo de Sulema, era fila 6 columna 15. Salia fila 6 columna 0
+Todos los pesos en 0 por defecto
+
 Laberinto
 	--Pintar Laberinto.
 	--Mostrar datos de cada coordenada en Hover.
@@ -14,6 +20,7 @@ Laberinto
 	--Mostrar cuál es el estado final.
 	Mostrar cuál es el estado actual. (Se muestra donde está el ser.)
 	--Mostrar letras en las columnas (Empezando por la A) y números en las filas (Empezando por el 1).
+
 
 
 --Terrenos.
