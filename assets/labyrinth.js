@@ -1,7 +1,7 @@
 import FileParser from './fileParser.js';
 import TerrainForm from './terrainForm.js';
 import Characters from './characters.js';
-import LabyrinthMovement from './labyrinthMovement.js';
+import LabyrinthSolver from './labSolver/LabyrinthSolver.js';
 
 
 class Labyrinth{
@@ -15,6 +15,8 @@ class Labyrinth{
         this.finalState = {};
         this.characters = {};
         this.currentCharacter = {}
+        this.solvingMode = "Depth"; // Manual Depth
+        this.expansionOrder = ["up", "right", "down", "left"];
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
@@ -39,9 +41,9 @@ class Labyrinth{
         // por lo que hay que dibujar el laberinto con esos nuevos datos.
         this.terrainsFormObserver = new MutationObserver(this.terrainFormObserverCallback.bind(this)); 
 
-        this.labyrinthMovement = new LabyrinthMovement();
+        //this.labyrinthMovement = new LabyrinthMovement();
         this.characterForm = new Characters();
-        
+        this.labyrinthSolver = new LabyrinthSolver();
     }
 
     setLabFile(labFile){
@@ -146,7 +148,8 @@ class Labyrinth{
             this.hideButtons();
             // mostrar botón para detener el laberinto
             this.finishLabyrinthButton.style.display = "inline-block";
-            this.labyrinthMovement.startLabyrinth();
+            //this.labyrinthMovement.startLabyrinth();
+            this.labyrinthSolver.solve();
         }
     }
 
@@ -235,7 +238,8 @@ class Labyrinth{
                 visit.innerHTML = "";
                 
                 // borrar el estado actual
-                this.labyrinthMovement.eraseState(this.currentState.row, this.currentState.column);
+                const characterCell = document.getElementById("characterContainer" + this.currentState.row + "," + this.currentState.column);
+                characterCell.style.visibility = "hidden";
             }
         }
     }

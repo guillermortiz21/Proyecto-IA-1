@@ -59,7 +59,6 @@ class LabyrinthMovement{
                 return;
             }
         }
-
     }
 
     drowState(i,j){

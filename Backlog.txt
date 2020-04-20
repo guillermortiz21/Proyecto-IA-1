@@ -15,7 +15,7 @@ Laberinto
 		--Se puede cambiar en cualquier momento
 	--Manera de elegir estado final
 		--Se puede cambiar en cualquier momento
-	Que todas las casillas muestren sus números de visita.
+	--Que todas las casillas muestren sus números de visita.
 	--Mostrar cuál es el estado inicial
 	--Mostrar cuál es el estado final.
 	Mostrar cuál es el estado actual. (Se muestra donde está el ser.)
@@ -27,7 +27,7 @@ Laberinto
 	--Formulario para ligar cada id de terreno con un nombre y un color (o una imagen)
 
 
-Archivo laberinto.
+--Archivo laberinto.
 	--Subir archivo.
 	--Validar Archivo.
 		Validar tamaño mínimo
@@ -42,19 +42,28 @@ Archivo laberinto.
 
 
 Seres.
-	Preguntar costo de movimiento por cada uno de los terrenos.
-	Costos enteros o decimales positivos incluyendo el cero.
-	Costos truncados a dos decimales.
-	Forma de agregar no aplica a un terreno.
-	Interfaz para crear seres.
-		Máximo 5 seres.
-	Nunca se juega con dos seres a la vez.
-	Poder elegir un ser y posicionarlo en el estado inicial.
-	Validar si el ser puede moverse en el estado inicial.
-	Validar si el ser puede moverse en el estado final.
+	--Preguntar costo de movimiento por cada uno de los terrenos.
+	--Costos enteros o decimales positivos incluyendo el cero.
+	--Costos truncados a dos decimales.
+	--Forma de agregar no aplica a un terreno.
+	--Interfaz para crear seres.
+		--Máximo 5 seres.
+	--Nunca se juega con dos seres a la vez.
+	--Poder elegir un ser y posicionarlo en el estado inicial.
+	--Validar si el ser puede moverse en el estado inicial.
+	--Validar si el ser puede moverse en el estado final.
 	--El ser se puede mover con las teclas arriba, abajo, derecha, izquierda.
 	--No se puede mover a terrenos con no aplica.
 	--Mostrar mensaje cuando se llega al estado final.
 	--No borrar el mapa después de llegar al final.
 	--El ser ya no se puede mover una vez que hayas llegado al final.
-	Poder reiniciar en cualquier momento, sin cerrar el programa.
+	--Poder reiniciar en cualquier momento, sin cerrar el programa.
+
+
+Agregar enmascaramiento de mapas
+El usuario puede establecer prioridad de orden visita
+Aplicar algoritmo de profundidad para resolver el laberinto
+Mostrar la ruta de solución cuando se llega al estado final
+Mostrar árbol de búsqueda
+
+Error al terminar laberinto en modo manual (Ver consola)
