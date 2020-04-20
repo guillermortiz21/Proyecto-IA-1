@@ -17,6 +17,7 @@ class DepthFirstSearch{
 
     async solve(){
         this.startSolver();
+
         // iteramos mientras la pila no esté vacía o mientras no lleguemos al estado final
         this.finalStateFound = false;
         while(this.stack.length > 0 && !this.finalStateFound){
@@ -104,7 +105,11 @@ class DepthFirstSearch{
         this.visited.push(this.currentState);
     }
 
-    wait = ms => new Promise(res => setTimeout(res, ms));
+    wait(time){
+        return new Promise(function(res){
+            setTimeout(res, time);
+        });
+    }
 
     showResult(){
         if(this.finalStateFound){
@@ -112,6 +117,10 @@ class DepthFirstSearch{
         }else{
             console.log("No existe camino al estado final");
         }
+    }
+
+    stop(){
+        this.clearVars();
     }
 }
 

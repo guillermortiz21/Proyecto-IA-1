@@ -16,6 +16,13 @@ class LabyrinthSolver{
             this.depthFirstSearch.solve();
         }
     }
+
+    stop(){
+        const solvingMode = Labyrinth.solvingMode;
+        if(solvingMode == "Depth"){
+            this.depthFirstSearch.stop();
+        }
+    }
 }
 
 export default LabyrinthSolver;

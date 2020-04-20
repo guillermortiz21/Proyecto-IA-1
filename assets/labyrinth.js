@@ -15,7 +15,7 @@ class Labyrinth{
         this.finalState = {};
         this.characters = {};
         this.currentCharacter = {}
-        this.solvingMode = "Depth"; // Manual Depth
+        this.solvingMode = "Manual"; // Manual Depth
         this.expansionOrder = ["up", "right", "down", "left"];
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
@@ -224,6 +224,7 @@ class Labyrinth{
         this.showButtons();
         this.finishLabyrinthButton.style.display = "none";
         this.clearLabyrint();
+        this.labyrinthSolver.stop();
     }
 
     clearLabyrint(){
