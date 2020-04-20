@@ -91,26 +91,26 @@ class SolverUtils{
     }   
 
     getAdjacents(state){
-        const expansionOrder = Labyrinth.expansionOrder;
+        const searchOrder = Labyrinth.getSearchOrder();
         const adjacents = [];
         var adjacent = {};
-        for(let i = 0; i < expansionOrder.length; i++){
-            if(expansionOrder[i] == "up"){
+        for(let i = 0; i < searchOrder.length; i++){
+            if(searchOrder[i] == "up"){
                 adjacent = {
                     row: state.row - 1,
                     column: state.column
                 };
-            }else if(expansionOrder[i] == "right"){
+            }else if(searchOrder[i] == "right"){
                 adjacent = {
                     row: state.row,
                     column: state.column + 1
                 };
-            }else if(expansionOrder[i] == "down"){
+            }else if(searchOrder[i] == "down"){
                 adjacent = {
                     row: state.row + 1,
                     column: state.column
                 };
-            }else if(expansionOrder[i] == "left"){
+            }else if(searchOrder[i] == "left"){
                 adjacent = {
                     row: state.row,
                     column: state.column - 1

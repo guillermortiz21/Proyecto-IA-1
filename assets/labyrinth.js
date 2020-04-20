@@ -2,6 +2,7 @@ import FileParser from './fileParser.js';
 import TerrainForm from './terrainForm.js';
 import Characters from './characters.js';
 import LabyrinthSolver from './labSolver/LabyrinthSolver.js';
+import SearchOrder from './searchOrder.js';
 
 
 class Labyrinth{
@@ -15,14 +16,18 @@ class Labyrinth{
         this.finalState = {};
         this.characters = {};
         this.currentCharacter = {}
-        this.solvingMode = "Manual"; // Manual Depth
-        this.expansionOrder = ["up", "right", "down", "left"];
+        this.solvingMode = "Depth"; // Manual Depth
+        this.searchOrder = ["up", "right", "down", "left"];
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
         this.terrainsFormButton = document.getElementById("terrainsFormButton"); // botón para modificar los datos de los terrenos
         this.changeFileButton = document.getElementById("changeFileButton"); // botón para volver a cargar ell archivo
         this.charactersFormButton = document.getElementById("charactersFormButton"); // botón para mostrar el formulario de seres
+
+        this.searchOrderForm = document.getElementById("searchOrderForm"); // form para escoger el orden de búsqueda
+        this.searchOrderButton = document.getElementById("searchOrderButton"); // botón para mostrar el menún de orden de búsqueda
+        this.submitSearchOrderFormButton = document.getElementById("submitSearchOrderFormButton"); // botón para guardar el orden de búsqueda
 
         // botón para iniciar el laberinto
         // para iniciarlo primero deben de pasar las siguientes cosas:
@@ -44,6 +49,7 @@ class Labyrinth{
         //this.labyrinthMovement = new LabyrinthMovement();
         this.characterForm = new Characters();
         this.labyrinthSolver = new LabyrinthSolver();
+        this.searchOrderConfig = new SearchOrder();
     }
 
     setLabFile(labFile){
@@ -104,6 +110,14 @@ class Labyrinth{
     getColumnNumber(){
         // obtener el número de columnas
         return this.fileArray[0].length;
+    }
+
+    setSearchOrder(searchOrder){
+        this.searchOrder = searchOrder;
+    }
+
+    getSearchOrder(){
+        return this.searchOrder;
     }
 
     parseFile(){
@@ -270,6 +284,10 @@ class Labyrinth{
         this.finishLabyrinthButton.onclick = function(){
             this.finishLabyrinth();
         }.bind(this);
+
+        this.searchOrderButton.onclick = function(){
+            this.searchOrderConfig.drawOrderForm();
+        }.bind(this);
     }
 
     terrainFormObserverCallback(changes){
@@ -290,6 +308,8 @@ class Labyrinth{
             // y mostramos el formulario de seres
             this.charactersFormButton.style.display =  "inline-block";
             this.drawCharactersForm();
+
+            this.searchOrderButton.style.display = "inline-block";
 
             // mostramos el botón para iniciar laberinto
             // (esto se hace ahorita solo por prueba, debería mostrarse hasta que se configuran los seres)

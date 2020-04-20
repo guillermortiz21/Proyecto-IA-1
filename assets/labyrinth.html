@@ -16,6 +16,7 @@
         <button type="button" id="changeFileButton" class="topButtons">Cambiar archivo</button>
         <button type="button" id="terrainsFormButton" class="topButtons">Modificar Terrenos</button>
         <button type="button" id="charactersFormButton" class="topButtons hiddenButton">Modificar seres</button>
+        <button type="button" id="searchOrderButton" class="topButtons hiddenButton">Modificar orden de búsqueda</button>
         <button type="button" id="startLabyrinthButton" class="topButtons hiddenButton">Iniciar laberinto</button>
         <button type="button" id="finishLabyrinthButton" class="topButtons hiddenButton">Finalizar laberinto</button>
     </div>
@@ -57,6 +58,15 @@
                 </tr>
             </table>
             <button type="button" id="submitCharactersFormButton" class="submitButton">Guardar seres</button>
+        </div>
+    </div>
+
+    <!-- Modal para la selección de orden de búsqueda -->
+    <div id="searchOrderForm" class="modal">
+        <div class="modal-content">
+            <p style="text-align: center">Orden de visita</p>
+            <table id="searchOrderTable"></table>
+            <button type="button" id="submitSearchOrderFormButton" class="submitButton">Guardar orden de visita</button>
         </div>
     </div>
     

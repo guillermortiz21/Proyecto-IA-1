@@ -62,8 +62,6 @@ Seres.
 
 Agregar enmascaramiento de mapas
 El usuario puede establecer prioridad de orden visita
-Aplicar algoritmo de profundidad para resolver el laberinto
+--Aplicar algoritmo de profundidad para resolver el laberinto
 Mostrar la ruta de solución cuando se llega al estado final
 Mostrar árbol de búsqueda
-
-Error al terminar laberinto en modo manual (Ver consola)
