@@ -1,9 +1,11 @@
 class LabState {
-    constructor(state, visited, weight, arriveCost){
+    constructor(state, visited, weight, Gn, Hn){
         this.state = state; // estado del laberinto
         this.visited = visited; // si ya fue visitado ese estado
         this.weight = weight; // costo para cruzar ese estado. (El costo de pasar por esa casilla)
-        this.arriveCost = arriveCost; // costo para llegar a ese estado. (El costo acumulado del algoritmo)        
+        this.Gn = Gn; // coste del inicial a este nodo
+        this.Hn = Hn; // coste de este nodo al final
+        this.adjacents = []; // vecinos del estado
     }
 
     getState(){
@@ -14,8 +16,16 @@ class LabState {
         return this.visited;
     }
 
-    getCost(){
-        return this.cost;
+    getWeight(){
+        return this.weight;
+    }
+
+    getGn(){
+        return this.Gn;
+    }
+
+    getHn(){
+        return this.Hn;
     }
 
     getAdjacents(){
@@ -34,16 +44,28 @@ class LabState {
         this.weight = weight;
     }
 
-    setArriveCost(arriveCost){
-        this.arriveCost = arriveCost;
+    setGn(Gn){
+        this.Gn = Gn;
+    }
+
+    setHn(Hn){
+        this.Hn = Hn;
     }
 
     setAdjacents(adjacents){
         this.adjacents = adjacents;
     }
 
-    addAdjacents(node){
+    addAdjacent(node){
         this.addAdjacents.push(node);
+    }
+
+    removeAdjacent(node){
+        const index = this.adjacents.indexOf(node);
+        if(index > -1){
+            // desde index borra 1
+            this.addAdjacent.splice(index, 1);
+        }
     }
 }
 

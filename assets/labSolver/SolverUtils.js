@@ -1,28 +1,90 @@
 import Labyrinth from '../labyrinth.js';
 import LabState from './LabState.js';
+import LabGraph from './LabGraph.js';
 
 
 class SolverUtils{
     constructor (){
         this.currentState = {};
-        this.visit = 1;
+        this.visitNumber = 1;
+        this.labGraph = new LabGraph();
     }
 
     setCurrentState(currentState){
         this.currentState = currentState;
     }
 
-    setVisit(visit){
-        this.visit = visit;
+    setVisitNumber(visitNumber){
+        this.visitNumber = visitNumber;
     }
 
-    addToGraph(labGraph, state, arriveCost){
+    getLabGraph(){
+        return this.labGraph;
+    }
+
+    addToGraph(state, Gn = null, Hn = null){
+        // el mismo estado podría estar más de una vez en el grafo
+        // a la key le vamos a agreguar un id
+        // para diferenciar los estados iguales
+        state.id = this.getStateId(state);
         // en state tengo solo la coordenada de la casilla a agregar al grafo,
         // hay que obtener sus datos como su peso
         const visited = false;
         const weight = this.getStateWeight(state);
-        const labState = new LabState(state, visited, weight, arriveCost);
-        labGraph.addState(labState);
+        const labState = new LabState(state, visited, weight, Gn, Hn);
+        this.labGraph.addState(state, labState);
+        //console.log(this.labGraph);
+        return state;
+    }
+
+    addVertexToGraph(stateA, stateB){
+        this.labGraph.addVertex(stateA, stateB);
+    }
+
+    isInGraphByState(state){
+        return this.labGraph.stateInGraph(state);
+    }
+
+    getStateId(state){
+        // esta función es para cuando el mismo estado está en dos o más nodos del grafo
+        // el id es para diferenciar esos nodos iguales
+        if(!this.isInGraphByState(state)){
+            // si no está en el grafo, regresamos 0
+            return 0;
+        }
+        // si está en el grafo tenemos que obtener el id del último nodo igual
+        // y regresamos ese id + 1
+        const nodes = this.getNodesFromGraph(state);
+        var max = nodes[0].id;
+        for(let i = 0; i < nodes.length; i++){
+            if(nodes[i].id > max){
+                max = nodes[i].id;
+            }
+        }
+        return max + 1;
+    }
+
+    getNodesFromGraph(state){
+        const states = this.labGraph.getLabStates();
+        const nodes = [];
+        for(var labState of states){
+            if(labState[0].row === state.row && labState[0].column === state.column){
+                nodes.push(labState[0]);
+            }
+        }
+        return nodes;
+    }
+
+    addVisitOrder(state){
+        this.labGraph.addToVisitOrder(state);
+    }
+
+    getVisitOrder(){
+        return this.labGraph.getVisitOrder();
+    }
+
+    markStateAsVisited(state){
+        this.labGraph.setStateAsVisited(state);
     }
 
     getStateWeight(state){
@@ -43,6 +105,10 @@ class SolverUtils{
         return Labyrinth.getFileArray()[state.row][state.column];
     }
 
+    getGn(state){
+        return this.labGraph.getGn(state);
+    }
+
     getCurrentCharacter(){
         return Labyrinth.getCurrentCharacter();
     }
@@ -54,9 +120,12 @@ class SolverUtils{
         // le decimos a Labyrinth que hay un nuevo final
         Labyrinth.setCurrentState(this.currentState);
 
+        // agregamos al orden de visita
+        this.addVisitOrder(this.currentState);
+
         // dibujamos la visita
         this.drawVisit(this.currentState);
-        this.visit++;
+        this.visitNumber++;
     }
 
     eraseState(state){
@@ -78,10 +147,10 @@ class SolverUtils{
         const visit = cell.getElementsByClassName("visit")[0];
         if(visit.innerHTML === ""){
             // es el primer elemento, no dibujamos coma
-            visit.innerHTML += this.visit;
+            visit.innerHTML += this.visitNumber;
         }else{
             // no es el primero, dibujamos coma
-            visit.innerHTML += "," + this.visit;
+            visit.innerHTML += "," + this.visitNumber;
         }
     }
 
@@ -174,6 +243,12 @@ class SolverUtils{
             return false;
         }
         return true;
+    }
+
+    clearVars(){
+        this.currentState = {};
+        this.visitNumber = 1;
+        this.labGraph.clearVars();
     }
 }
 

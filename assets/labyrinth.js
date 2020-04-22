@@ -701,14 +701,16 @@ class Labyrinth{
         this.changeFileButton.style.display = "none";
         this.charactersFormButton.style.display = "none";
         this.startLabyrinthButton.style.display = "none";
+        this.searchOrderButton.style.display  = "none";
     }
 
     showButtons(){
-        // cambiar el estilo de los botones a none
+        // cambiar el estilo de los botones a inline-block
         this.terrainsFormButton.style.display = "inline-block";
         this.changeFileButton.style.display = "inline-block";
         this.charactersFormButton.style.display = "inline-block";
         this.startLabyrinthButton.style.display = "inline-block";
+        this.searchOrderButton.style.display  = "inline-block";
     }
 
     showStartLabyrinthButton(){

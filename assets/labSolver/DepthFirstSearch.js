@@ -1,17 +1,15 @@
 import Labyrinth from '../labyrinth.js';
 import SolverUtils from './SolverUtils.js';
-import LabGraph from './LabGraph.js';
 
 class DepthFirstSearch{
     constructor(){
-        this.labGraph = new LabGraph(); 
         this.solverUtils = new SolverUtils();
         this.stack = []; // pila del algoritmo. Va a guardar las coordenadas de los nodos
         this.visited = [];
         this.initialState = {};
         this.currentState = {};
         this.finalStateFound = false;
-        this.arriveCost = 0;
+        this.acumulatedCost = 0;
         this.waitTime = 1000; // 1 segundo
     }
 
@@ -27,6 +25,7 @@ class DepthFirstSearch{
             // revisamos si llegamos al estado final
             this.checkIfFinalState();
             if(this.finalStateFound){
+                this.addToVisited();
                 break;
             }
 
@@ -40,6 +39,8 @@ class DepthFirstSearch{
         }
 
         this.showResult();
+        console.log(this.solverUtils.getLabGraph());
+        console.log(this.solverUtils.getVisitOrder());
         
     }
 
@@ -49,23 +50,31 @@ class DepthFirstSearch{
         this.initialState = {};
         this.currentState = {};
         this.finalStateFound = false;
-        this.arriveCost = 0;
+        this.acumulatedCost = 0;
+        this.solverUtils.clearVars();
     }
 
     startSolver(){
         this.clearVars();
-        // poner estado inicial en la pila
+        // obtener estado inicial
         this.initialState = Labyrinth.getInitialState();
-        this.stack.unshift(this.initialState);
+        
 
         // iniciamos las visitas
         const firstVisit = 1;
-        this.solverUtils.setVisit(firstVisit);
+        this.solverUtils.setVisitNumber(firstVisit);
         this.solverUtils.setCurrentState(this.initialState);
 
+        // iniciamos el costo acumulado en menos el peso del primero, porque
+        // al hacer select node por primera vez se va a agregar ese peso,
+        // dejándolo en cero.
+        this.acumulatedCost = -1 * this.solverUtils.getStateWeight(this.initialState);
+        
         // colocamos estado inicial en el grafo
-        this.arriveCost = 0; // no nos ha costado nada llegar hasta este nodo.
-        this.solverUtils.addToGraph(this.labGraph, this.initialState, this.arriveCost);
+        this.initialState = this.solverUtils.addToGraph(this.initialState, this.acumulatedCost);
+
+        // poner estado inicial en la pila
+        this.stack.unshift(this.initialState);
     }
 
     selectNode(){
@@ -77,6 +86,10 @@ class DepthFirstSearch{
             this.currentState = this.stack.shift();
         }
         this.solverUtils.changeState(this.currentState);
+
+        // actualizamos costo acumulado
+        const stateWeight = this.solverUtils.getStateWeight(this.currentState);
+        this.acumulatedCost = this.acumulatedCost + stateWeight;
     }
 
     checkIfFinalState(){
@@ -95,14 +108,24 @@ class DepthFirstSearch{
         for(let i = 0; i < adjacents.length; i++){
             if(this.solverUtils.isValidAdjacent(adjacents[i], this.visited)){
                 // expando solo si es un adjacente válido
-                // metemos current state a la pila
+
+                // agregamos el adjactente al gráfo
+                const stateWeight = this.solverUtils.getStateWeight(adjacents[i]);
+                adjacents[i] = this.solverUtils.addToGraph(adjacents[i], this.acumulatedCost + stateWeight);
+
+                // maracamos el adjacente en el grafo
+                this.solverUtils.addVertexToGraph(this.currentState, adjacents[i]);
+
+                // metemos el adjacente a la pila
                 this.stack.unshift(adjacents[i]);
+
             }
         }
     }
 
     addToVisited(){
         this.visited.push(this.currentState);
+        this.solverUtils.markStateAsVisited(this.currentState);
     }
 
     wait(time){
