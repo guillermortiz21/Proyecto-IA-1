@@ -136,10 +136,16 @@ class DepthFirstSearch{
 
     showResult(){
         if(this.finalStateFound){
-            console.log("Camino al estado final encontrado");
+            alert("Camino al estado final encontrado");
+            this.drawGraph();
         }else{
-            console.log("No existe camino al estado final");
+            alert("No existe camino al estado final");
         }
+    }
+
+    drawGraph(){
+        const container = document.getElementById("labyrinthGraph");
+        this.solverUtils.drawGraph(container);
     }
 
     stop(){

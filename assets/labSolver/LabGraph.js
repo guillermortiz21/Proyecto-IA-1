@@ -1,3 +1,5 @@
+import GraphVisualizer from './GraphVisualizer.js';
+
 class LabGraph{
     constructor(){
         this.labStates = new Map();
@@ -61,6 +63,11 @@ class LabGraph{
     clearVars(){
         this.labStates = new Map();
         this.visitOrder = [];
+    }
+
+    drawGraph(container){
+        const graphVisualizer = new GraphVisualizer();
+        graphVisualizer.drawGraph(this.labStates, container);
     }
 }
 

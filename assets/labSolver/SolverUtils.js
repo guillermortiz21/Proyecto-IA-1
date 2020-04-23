@@ -245,6 +245,10 @@ class SolverUtils{
         return true;
     }
 
+    drawGraph(container){
+        this.labGraph.drawGraph(container);
+    }
+
     clearVars(){
         this.currentState = {};
         this.visitNumber = 1;
