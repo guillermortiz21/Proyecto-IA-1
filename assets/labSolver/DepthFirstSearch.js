@@ -8,9 +8,12 @@ class DepthFirstSearch{
         this.visited = [];
         this.initialState = {};
         this.currentState = {};
+        this.routeToFinal = [];
+        this.finalState = {};
         this.finalStateFound = false;
         this.acumulatedCost = 0;
-        this.waitTime = 1000; // 1 segundo
+        this.visitNumber = 0;
+        this.waitTime = 250; // 1 segundo
     }
 
     async solve(){
@@ -25,7 +28,6 @@ class DepthFirstSearch{
             // revisamos si llegamos al estado final
             this.checkIfFinalState();
             if(this.finalStateFound){
-                this.addToVisited();
                 break;
             }
 
@@ -38,6 +40,9 @@ class DepthFirstSearch{
             await this.wait(this.waitTime);
         }
 
+        if(this.finalStateFound){
+            this.routeToFinal = this.solverUtils.getRouteToFinal(this.initialState, this.finalState);
+        }
         this.showResult();
         console.log(this.solverUtils.getLabGraph());
         console.log(this.solverUtils.getVisitOrder());
@@ -52,12 +57,16 @@ class DepthFirstSearch{
         this.finalStateFound = false;
         this.acumulatedCost = 0;
         this.solverUtils.clearVars();
+        this.visitNumber = 0;
     }
 
     startSolver(){
         this.clearVars();
         // obtener estado inicial
         this.initialState = Labyrinth.getInitialState();
+
+        // obtener estado final
+        this.finalState = Labyrinth.getFinalState();
         
 
         // iniciamos las visitas
@@ -68,10 +77,12 @@ class DepthFirstSearch{
         // iniciamos el costo acumulado en menos el peso del primero, porque
         // al hacer select node por primera vez se va a agregar ese peso,
         // dejándolo en cero.
-        this.acumulatedCost = -1 * this.solverUtils.getStateWeight(this.initialState);
-        
+        //this.acumulatedCost = -1 * this.solverUtils.getStateWeight(this.initialState);
+        this.acumulatedCost = 0;
+
         // colocamos estado inicial en el grafo
-        this.initialState = this.solverUtils.addToGraph(this.initialState, this.acumulatedCost);
+        //this.initialState = this.solverUtils.addToGraph(this.initialState, this.acumulatedCost);
+        this.solverUtils.addToGraph(this.initialState, null, this.acumulatedCost);
 
         // poner estado inicial en la pila
         this.stack.unshift(this.initialState);
@@ -86,10 +97,17 @@ class DepthFirstSearch{
             this.currentState = this.stack.shift();
         }
         this.solverUtils.changeState(this.currentState);
+        this.visitNumber++;
+        this.solverUtils.addVisitNumber(this.currentState, this.visitNumber);
+        this.addToVisited();
 
         // actualizamos costo acumulado
         const stateWeight = this.solverUtils.getStateWeight(this.currentState);
-        this.acumulatedCost = this.acumulatedCost + stateWeight;
+        if(this.visitNumber === 1){
+            this.acumulatedCost = 0; // en el prmer nodo nuestro el costo acumulado es cero
+        }else{
+            this.acumulatedCost = this.acumulatedCost + stateWeight;
+        }
     }
 
     checkIfFinalState(){
@@ -107,18 +125,20 @@ class DepthFirstSearch{
         // Hijo válido es que su peso no sea n/a y que no esté fuera del laberinto
         for(let i = 0; i < adjacents.length; i++){
             if(this.solverUtils.isValidAdjacent(adjacents[i], this.visited)){
-                // expando solo si es un adjacente válido
-
-                // agregamos el adjactente al gráfo
-                const stateWeight = this.solverUtils.getStateWeight(adjacents[i]);
-                adjacents[i] = this.solverUtils.addToGraph(adjacents[i], this.acumulatedCost + stateWeight);
-
-                // maracamos el adjacente en el grafo
-                this.solverUtils.addVertexToGraph(this.currentState, adjacents[i]);
-
-                // metemos el adjacente a la pila
-                this.stack.unshift(adjacents[i]);
-
+                // tabién hay que revisar que el estado no esté ya en el grafo
+                if(!this.solverUtils.isInGraphByState(adjacents[i])){
+                    // expando solo si es un adjacente válido
+                    // agregamos el adjactente al gráfo
+                    const stateWeight = this.solverUtils.getStateWeight(adjacents[i]);
+                    //adjacents[i] = this.solverUtils.addToGraph(adjacents[i], this.acumulatedCost + stateWeight);
+                    this.solverUtils.addToGraph(adjacents[i], this.currentState, this.acumulatedCost + stateWeight);
+    
+                    // maracamos el adjacente en el grafo
+                    this.solverUtils.addVertexToGraph(this.currentState, adjacents[i]);
+    
+                    // metemos el adjacente a la pila
+                    this.stack.unshift(adjacents[i]);
+                }
             }
         }
     }
@@ -145,7 +165,7 @@ class DepthFirstSearch{
 
     drawGraph(){
         const container = document.getElementById("labyrinthGraph");
-        this.solverUtils.drawGraph(container);
+        this.solverUtils.drawGraph(container, this.routeToFinal);
     }
 
     stop(){

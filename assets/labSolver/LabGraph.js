@@ -20,6 +20,10 @@ class LabGraph{
         this.visitOrder.push(state);
     }
 
+    addVisitNumber(state, visitNumber){
+        this.labStates.get(state).addVisitNumber(visitNumber);
+    }
+
     keyInGraph(key){
         return this.labStates.has(key);
     }
@@ -46,8 +50,8 @@ class LabGraph{
         return this.visitOrder;
     }
 
-    getState(stateA){
-        return this.labStates.get(stateA);
+    getState(state){
+        return this.labStates.get(state);
     } 
 
     addVertex(stateA, stateB){
@@ -65,9 +69,9 @@ class LabGraph{
         this.visitOrder = [];
     }
 
-    drawGraph(container){
+    drawGraph(container, routeToFinal){
         const graphVisualizer = new GraphVisualizer();
-        graphVisualizer.drawGraph(this.labStates, container);
+        graphVisualizer.drawGraph(this.labStates, container, routeToFinal);
     }
 }
 

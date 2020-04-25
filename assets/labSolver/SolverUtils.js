@@ -22,19 +22,22 @@ class SolverUtils{
         return this.labGraph;
     }
 
-    addToGraph(state, Gn = null, Hn = null){
+    addToGraph(state, parent, Gn = null, Hn = null){
         // el mismo estado podría estar más de una vez en el grafo
         // a la key le vamos a agreguar un id
         // para diferenciar los estados iguales
-        state.id = this.getStateId(state);
+        //state.id = this.getStateId(state);
         // en state tengo solo la coordenada de la casilla a agregar al grafo,
         // hay que obtener sus datos como su peso
-        const visited = false;
-        const weight = this.getStateWeight(state);
-        const labState = new LabState(state, visited, weight, Gn, Hn);
-        this.labGraph.addState(state, labState);
+        if(!this.isInGraphByState(state)){
+            const visited = false;
+            const weight = this.getStateWeight(state);
+            const name = this.getStateName(state);
+            const labState = new LabState(state, parent, visited, weight, Gn, Hn, name);
+            this.labGraph.addState(state, labState);
+        }
         //console.log(this.labGraph);
-        return state;
+        //return state;
     }
 
     addVertexToGraph(stateA, stateB){
@@ -113,6 +116,12 @@ class SolverUtils{
         return Labyrinth.getCurrentCharacter();
     }
 
+    getStateName(state){
+        const row = state.row + 1;
+        const column =  String.fromCharCode(state.column + 65);
+        return column + "," + row;
+    }
+
     changeState(newState){
         this.eraseState(this.currentState);
         this.drawState(newState);
@@ -126,6 +135,10 @@ class SolverUtils{
         // dibujamos la visita
         this.drawVisit(this.currentState);
         this.visitNumber++;
+    }
+
+    addVisitNumber(state, visitNumber){
+        this.labGraph.addVisitNumber(state, visitNumber);
     }
 
     eraseState(state){
@@ -245,8 +258,36 @@ class SolverUtils{
         return true;
     }
 
-    drawGraph(container){
-        this.labGraph.drawGraph(container);
+    drawGraph(container, routeToFinal){
+        this.labGraph.drawGraph(container, routeToFinal);
+    }
+    
+    getRouteToFinal(initialState, finalState){
+        var routeToFinal = [];
+        // tenemos que ir al estado final del grafo y conseguir a su nodo padre
+        // del nodo padre obtenemos también su padre
+        // y así hasta llegar al nodo inicial.
+        var currentNode = this.getLabState(finalState);
+        console.log(currentNode);
+        var currentState = currentNode.state;
+        routeToFinal.unshift(currentState);
+        while(currentState != initialState){
+            currentNode = this.getLabState(currentNode.parent);
+            currentState = currentNode.state;
+            routeToFinal.unshift(currentState);
+        }
+        return routeToFinal;
+    }
+
+    getLabState(state){
+        var labState = {};
+        for(var [key, value] of this.labGraph.labStates){
+            if(key.row === state.row && key.column === state.column){
+                labState = value;
+                break;
+            }
+        }
+        return labState;
     }
 
     clearVars(){
