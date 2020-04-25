@@ -22,6 +22,9 @@ class LabyrinthSolver{
         if(solvingMode == "Depth"){
             this.depthFirstSearch.stop();
         }
+
+        // borrar el grafo.
+        document.getElementById("labyrinthGraph").innerHTML = "";
     }
 }
 

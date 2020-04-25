@@ -260,6 +260,14 @@ class SolverUtils{
 
     drawGraph(container, routeToFinal){
         this.labGraph.drawGraph(container, routeToFinal);
+        this.drawRouteInLabyrinth(routeToFinal);
+    }
+
+    drawRouteInLabyrinth(routeToFinal){
+        for(let i = 0; i < routeToFinal.length; i++){
+            const cell = document.getElementById("cell" + routeToFinal[i].row + "," + routeToFinal[i].column);
+            cell.style.backgroundColor = "#D4EFBF";
+        }
     }
     
     getRouteToFinal(initialState, finalState){

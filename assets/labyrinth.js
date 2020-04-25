@@ -242,7 +242,13 @@ class Labyrinth{
     }
 
     clearLabyrint(){
-        //este proceso limpia todas las visitas del laberinto y el dibujo del estado actual
+        /// vuelvo a dibujar el laberinto
+        this.drawLabyrinth();
+        // agrego de nuevo los símibolos de inicial y final
+        this.setInitialState(this.initialState.row, this.initialState.column);
+        this.setFinallState(this.finalState.row, this.finalState.column);
+
+        /*//este proceso limpia todas las visitas del laberinto y el dibujo del estado actual
         for(let i=0; i < this.fileArray.length; i++){
             for(let j=0; j < this.fileArray[i].length; j++){
                 // limpiar las visitas
@@ -256,7 +262,7 @@ class Labyrinth{
                 const characterCell = document.getElementById("characterContainer" + this.currentState.row + "," + this.currentState.column);
                 characterCell.style.visibility = "hidden";
             }
-        }
+        }*/
     }
 
     setObservers(){
@@ -542,7 +548,7 @@ class Labyrinth{
                 const element = this.getLabyrinthElement("cell", i, j);
                 // obtengo el color original (porque el hover cambia el color
                 // y quiero regresar su color cuando termine el hover)
-                const originalColor = element.style.backgroundColor;
+                var originalColor = element.style.backgroundColor;
 
                 // hay dos acciones en el hover. Primero se cambia el color de la celda
                 // y si el puntero está más de medio segundo en la celda, se muestra el cuadro
@@ -553,6 +559,7 @@ class Labyrinth{
 
                 // evento cuando el mouse entra a la celda
                 element.onmouseover = function(){
+                    originalColor = element.style.backgroundColor;
                     // el color de la celda cambia
                     element.style.backgroundColor = "#F7D8AA"
 
