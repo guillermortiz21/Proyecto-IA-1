@@ -323,6 +323,20 @@ class Labyrinth{
         }
     }
 
+    getCellColor(i,j){
+        console.log(this.terrainValues);
+        const terrainId = document.getElementById('cell' + i + ',' + j).classList[1];
+        console.log(terrainId);
+        var color = "";
+        for(let i = 0; i < this.terrainValues.length; i++){
+            if(this.terrainValues[i].id === terrainId){
+                color = this.terrainValues[i].color;
+                break;
+            }
+        }
+        return color;
+    }
+
     drawLabyrinth(){
         var labyrinthHtml = "";
         // iterar a traves de toda la matriz dentro de fileArray
