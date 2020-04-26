@@ -163,8 +163,21 @@ class Labyrinth{
             // mostrar botón para detener el laberinto
             this.finishLabyrinthButton.style.display = "inline-block";
             //this.labyrinthMovement.startLabyrinth();
+            this.insertMichi();
             this.labyrinthSolver.solve();
         }
+    }
+
+    insertMichi(){
+        var gatete = '<div class="' + this.currentCharacter.name + '"></div>';
+        var mishi;
+        for(let i=0; i < this.fileArray.length; i++){
+            for(let j=0; j < this.fileArray[i].length; j++){
+                mishi = document.getElementById("characterContainer"+ i + "," + j);
+                mishi.innerHTML = gatete;
+                console.log(mishi)
+            }
+        }    
     }
 
     canStartLabyrinth(){
