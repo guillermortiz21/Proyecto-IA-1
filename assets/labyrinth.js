@@ -176,16 +176,13 @@ class Labyrinth{
     }
 
     insertMichi(){
-        var name = this.name;
-        var div = document.createElement('div');
-        div.className = name;
-        var michi = div;
-        var mish;
+        var gatete = '<div class="' + this.currentCharacter.name + '"></div>';
+        var mishi;
         for(let i=0; i < this.fileArray.length; i++){
             for(let j=0; j < this.fileArray[i].length; j++){
-                mish = document.getElementById("characterContainer"+ i + "," + j);
-                mish.appendChild(michi);
-                console.log(mish)
+                mishi = document.getElementById("characterContainer"+ i + "," + j);
+                mishi.innerHTML = gatete;
+                console.log(mishi)
             }
         }    
     }
