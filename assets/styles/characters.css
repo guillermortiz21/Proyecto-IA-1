@@ -1,16 +1,50 @@
-/*.gatito{
-    margin-left: 40%;
-    margin-bottom: 5%;
-    margin-right: 90px;
-    align-self: center
-}*/
-
 .character{
     visibility: hidden;
-    font-size: 30px;
+    font-size: 10px;
     padding: 7px;
     box-sizing: border-box;
     width: min-content;
     text-align: center;
     margin: auto;
+}
+
+.michi{
+    height: 60px;
+    width: 45px;
+    margin-top: -18px;
+}
+
+.Nera{
+    height: 60px;
+    width: 45px;
+    background-image: url("/assets/gatetes/catBlack.png");
+    margin-top: -18px;
+}
+
+.Ray{
+    height: 60px;
+    width: 45px;
+    background-image: url("/assets/gatetes/catOrange.png");
+    margin-top: -18px;
+}
+
+.Meeko{
+    height: 60px;
+    width: 45px;
+    background-image: url("/assets/gatetes/catGray.png");
+    margin-top: -18px;
+}
+
+.Lepuchi{
+    height: 60px;
+    width: 45px;
+    background-image: url("/assets/gatetes/catYellow.png");
+    margin-top: -18px;
+}
+
+.Ares{
+    height: 60px;
+    width: 45px;
+    background-image: url("/assets/gatetes/catGray2.png");
+    margin-top: -18px;
 }

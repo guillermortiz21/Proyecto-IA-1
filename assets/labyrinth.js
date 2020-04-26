@@ -19,6 +19,8 @@ class Labyrinth{
         this.solvingMode = "Depth"; // Manual Depth
         this.searchOrder = ["up", "right", "down", "left"];
 
+        this.name = ""; //Nombre del michito escogido para mostrarlo
+
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
         this.terrainsFormButton = document.getElementById("terrainsFormButton"); // botón para modificar los datos de los terrenos
@@ -87,6 +89,7 @@ class Labyrinth{
 
     setCurrentCharacter(currentCharacter){
         this.currentCharacter = currentCharacter;
+        this.name = this.currentCharacter.name;
         console.log(this.currentCharacter);
     }
 
@@ -158,13 +161,33 @@ class Labyrinth{
     startLabyrinth(){
         // validar que pueda iniciar el laberinto
         if(this.canStartLabyrinth()){
+            
             // desactivar los botones mientras se ejecuta el laberinto
             this.hideButtons();
+            
             // mostrar botón para detener el laberinto
             this.finishLabyrinthButton.style.display = "inline-block";
             //this.labyrinthMovement.startLabyrinth();
+
+            this.insertMichi();
+
             this.labyrinthSolver.solve();
         }
+    }
+
+    insertMichi(){
+        var name = this.name;
+        var div = document.createElement('div');
+        div.className = name;
+        var michi = div;
+        var mish;
+        for(let i=0; i < this.fileArray.length; i++){
+            for(let j=0; j < this.fileArray[i].length; j++){
+                mish = document.getElementById("characterContainer"+ i + "," + j);
+                mish.appendChild(michi);
+                console.log(mish)
+            }
+        }    
     }
 
     canStartLabyrinth(){
@@ -349,7 +372,7 @@ class Labyrinth{
                 labyrinthHtml += '<div class="visit"></div>'
                 
                 // div para mostrar a nuestro ser en cada una de las seldas
-                labyrinthHtml += '<div id="characterContainer' + i + ',' + j + '" class="character">#</div>'
+                labyrinthHtml += '<div id="characterContainer' + i + ',' + j + '"class="character"></div>'
 
                 // poner aqui el popup para seleccionar si esta casilla es estado incial o final
                 labyrinthHtml += '<span class="popuptext" id="popup' + i + "," + j + '">'
