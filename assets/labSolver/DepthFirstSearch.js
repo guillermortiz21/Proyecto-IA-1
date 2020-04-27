@@ -13,7 +13,7 @@ class DepthFirstSearch{
         this.finalStateFound = false;
         this.acumulatedCost = 0;
         this.visitNumber = 0;
-        this.waitTime = 250; // 1 segundo
+        this.waitTime = 1000; // 1 segundo
     }
 
     async solve(){
@@ -24,6 +24,10 @@ class DepthFirstSearch{
         while(this.stack.length > 0 && !this.finalStateFound){
             // seleccionamos nuestro nodo actual
             this.selectNode();
+
+            console.log(this.currentState);
+
+            Labyrinth.drawColorCell(this.currentState);
 
             // revisamos si llegamos al estado final
             this.checkIfFinalState();
@@ -121,6 +125,7 @@ class DepthFirstSearch{
         // obtenemos los candidatos a hijos del nodo
         // se obtienen respendando el orden de expansión
         const adjacents = this.solverUtils.getAdjacents(this.currentState);
+        console.log(adjacents);
         // revisar cada uno y determinar si es un hijo válido.
         // Hijo válido es que su peso no sea n/a y que no esté fuera del laberinto
         for(let i = 0; i < adjacents.length; i++){

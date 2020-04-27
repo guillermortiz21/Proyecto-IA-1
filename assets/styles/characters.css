@@ -14,3 +14,38 @@
     text-align: center;
     margin: auto;
 }
+
+.Nera{
+    height: 60px;
+    width: 45px;
+    background-image: url("/assets/gatetes/catBlack.png");
+    margin-top: -18px;
+}
+
+.Ray{
+    height: 60px;
+    width: 45px;
+    background-image: url("/assets/gatetes/catOrange.png");
+    margin-top: -18px;
+}
+
+.Meeko{
+    height: 60px;
+    width: 45px;
+    background-image: url("/assets/gatetes/catGray.png");
+    margin-top: -18px;
+}
+
+.Lepuchi{
+    height: 60px;
+    width: 45px;
+    background-image: url("/assets/gatetes/catYellow.png");
+    margin-top: -18px;
+}
+
+.Ares{
+    height: 60px;
+    width: 45px;
+    background-image: url("/assets/gatetes/catGray2.png");
+    margin-top: -18px;
+}

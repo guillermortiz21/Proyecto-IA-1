@@ -16,7 +16,7 @@ class Labyrinth{
         this.finalState = {};
         this.characters = {};
         this.currentCharacter = {}
-        this.solvingMode = "Depth"; // Manual Depth
+        this.solvingMode = "Manual"; // Manual Depth
         this.searchOrder = ["up", "right", "down", "left"];
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
@@ -164,6 +164,7 @@ class Labyrinth{
             this.finishLabyrinthButton.style.display = "inline-block";
             //this.labyrinthMovement.startLabyrinth();
             this.insertMichi();
+            this.maskLabyrinth();
             this.labyrinthSolver.solve();
         }
     }
@@ -175,9 +176,21 @@ class Labyrinth{
             for(let j=0; j < this.fileArray[i].length; j++){
                 mishi = document.getElementById("characterContainer"+ i + "," + j);
                 mishi.innerHTML = gatete;
-                console.log(mishi)
             }
         }    
+    }
+
+    maskLabyrinth(){
+        console.log(this.initialState);
+        console.log(this.finalState);
+        for(let i = 0; i < this.fileArray.length; i++){
+            for(let j=0; j < this.fileArray[i].length; j++){
+                const cell = document.getElementById("cell" + i + "," +j);
+                if ((i != this.initialState.row || j != this.initialState.column) && (i != this.finalState.row || j != this.finalState.column)){
+                    cell.style.backgroundColor = "#0d0c0d";
+                }
+            }
+        }
     }
 
     canStartLabyrinth(){
@@ -336,8 +349,41 @@ class Labyrinth{
         }
     }
 
+    drawColorCell(state){
+        const rowUp = state.row +1;
+        const rowDown = state.row - 1;
+        const columnUp = state.column + 1;
+        const columnDown = state.column - 1;
+        var color = "";
+        var cell = "";
+        color = this.getCellColor(state.row, state.column);
+        cell = document.getElementById("cell" + state.row + "," + state.column);
+        cell.style.backgroundColor = color;
+        if(state.row > 0){
+            color = this.getCellColor(rowDown, state.column);
+            cell = document.getElementById("cell" + rowDown  + "," + state.column);
+            cell.style.backgroundColor = color;
+        }
+        if(state.row < this.getRowNumber()-1){
+            color = this.getCellColor(rowUp, state.column);
+            cell = document.getElementById("cell" + rowUp  + "," + state.column);
+            cell.style.backgroundColor = color;
+        }
+        if(state.column < this.getColumnNumber()-1){
+            color = this.getCellColor(state.row, columnUp);
+            cell = document.getElementById("cell" + state.row  + "," + columnUp);
+            cell.style.backgroundColor = color;
+        }
+        if(state.column > 0){
+            color = this.getCellColor(state.row, columnDown);
+            cell = document.getElementById("cell" + state.row  + "," + columnDown);
+            cell.style.backgroundColor = color;
+        }
+    }
+
     getCellColor(i,j){
         console.log(this.terrainValues);
+        console.log(i, j);
         const terrainId = document.getElementById('cell' + i + ',' + j).classList[1];
         console.log(terrainId);
         var color = "";

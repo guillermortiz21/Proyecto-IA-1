@@ -54,11 +54,13 @@ class LabyrinthMovement{
             Labyrinth.drawVisit(i,j, this.visit);
             this.visit++;
             if(this.checkIfFinalState()){
+                Labyrinth.drawColorCell(this.currentState);
                 alert("Has llegado al estado final!");
                 this.finishLabyrinth();
                 return;
             }
         }
+        Labyrinth.drawColorCell(this.currentState);
     }
 
     drowState(i,j){
