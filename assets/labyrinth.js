@@ -16,7 +16,7 @@ class Labyrinth{
         this.finalState = {};
         this.characters = {};
         this.currentCharacter = {}
-        this.solvingMode = "Manual"; // Manual Depth
+        this.solvingMode = "Depth"; // Manual Depth
         this.searchOrder = ["up", "right", "down", "left"];
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
