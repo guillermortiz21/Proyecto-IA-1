@@ -34,7 +34,7 @@ class TerrainForm{
             tableData += '<td id="leftCell' + id + '">' + id + '</td>'; // celda que muestra el id del terreno
 
             // celda que va a mostrar las distintas opciones de terreno disponibles
-            tableData += '<td class="colorsList"><div class="radioContainer">';
+            tableData += '<td class="radioGroup"><div class="radioContainer">';
             for(let j=0; j < terrainOptions.length; j++){
                 // agrego un radio para cada uno de los tipos de terrenos
                 tableData += '<div class="radioContainer"><input type="radio" id="terrain' + terrainOptions[j].id + id + '"name="terrain' + id + '" value="' + terrainOptions[j].id + '"></div>'

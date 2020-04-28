@@ -3,6 +3,7 @@ import TerrainForm from './terrainForm.js';
 import Characters from './characters.js';
 import LabyrinthSolver from './labSolver/LabyrinthSolver.js';
 import SearchOrder from './searchOrder.js';
+import SolverTypeSelection from './solverTypeSelection.js';
 
 
 class Labyrinth{
@@ -16,18 +17,19 @@ class Labyrinth{
         this.finalState = {};
         this.characters = {};
         this.currentCharacter = {}
-        this.solvingMode = "Manual"; // Manual Depth
+        this.solverType = "Depth"; // Manual Depth
         this.searchOrder = ["up", "right", "down", "left"];
+        this.labyrinthWorking = false;
 
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
         this.terrainsFormButton = document.getElementById("terrainsFormButton"); // botón para modificar los datos de los terrenos
         this.changeFileButton = document.getElementById("changeFileButton"); // botón para volver a cargar ell archivo
         this.charactersFormButton = document.getElementById("charactersFormButton"); // botón para mostrar el formulario de seres
-
+        
         this.searchOrderForm = document.getElementById("searchOrderForm"); // form para escoger el orden de búsqueda
         this.searchOrderButton = document.getElementById("searchOrderButton"); // botón para mostrar el menún de orden de búsqueda
-        this.submitSearchOrderFormButton = document.getElementById("submitSearchOrderFormButton"); // botón para guardar el orden de búsqueda
+        this.solverTypeButton = document.getElementById("solverTypeButton"); // botón para cambiar el tipo de solución del laberinto
 
         // botón para iniciar el laberinto
         // para iniciarlo primero deben de pasar las siguientes cosas:
@@ -50,6 +52,7 @@ class Labyrinth{
         this.characterForm = new Characters();
         this.labyrinthSolver = new LabyrinthSolver();
         this.searchOrderConfig = new SearchOrder();
+        this.solverTypeSelection = new SolverTypeSelection();
     }
 
     setLabFile(labFile){
@@ -120,6 +123,22 @@ class Labyrinth{
         return this.searchOrder;
     }
 
+    setSolverType(solverType){
+        this.solverType = solverType;
+    }
+
+    getSolverType(){
+        return this.solverType;
+    }
+
+    setLabyrinthWorking(labWorking){
+        this.labyrinthWorking = labWorking;
+    }
+
+    getLabyrinthWorking(){
+        return this.labyrinthWorking;
+    }
+
     parseFile(){
         this.fileParser = new FileParser();
         if(this.fileParser.parseAndValidateFile()){
@@ -146,7 +165,6 @@ class Labyrinth{
         this.characterForm.setVariables();
         this.characterForm.drawCharactersForm();
     }
-
 
     drawTerrainsForm(){
         this.terrainForm = new TerrainForm();
@@ -320,6 +338,10 @@ class Labyrinth{
         this.searchOrderButton.onclick = function(){
             this.searchOrderConfig.drawOrderForm();
         }.bind(this);
+
+        this.solverTypeButton.onclick = function(){
+            this.solverTypeSelection.drawSolverTypeForm();
+        }.bind(this);
     }
 
     terrainFormObserverCallback(changes){
@@ -342,6 +364,8 @@ class Labyrinth{
             this.drawCharactersForm();
 
             this.searchOrderButton.style.display = "inline-block";
+
+            this.solverTypeButton.style.display = "inline-block";
 
             // mostramos el botón para iniciar laberinto
             // (esto se hace ahorita solo por prueba, debería mostrarse hasta que se configuran los seres)
@@ -503,9 +527,11 @@ class Labyrinth{
                 let cell = this.getLabyrinthElement("cell", i, j);
                 // cuando se haga click en la celda con coordenada i,j voy a mostrar el popup de esa celda
                 cell.onclick = function(event){
-                    // encuntro el popup con coordenadas i,j y lo muestro
-                    let popup = this.getLabyrinthElement("popup", i, j);
-                    popup.classList.toggle("show");
+                    if(!this.labyrinthWorking){
+                        // encuntro el popup con coordenadas i,j y lo muestro
+                        let popup = this.getLabyrinthElement("popup", i, j);
+                        popup.classList.toggle("show");
+                    }
                 }.bind(this);
             }
         }
@@ -782,6 +808,7 @@ class Labyrinth{
         this.charactersFormButton.style.display = "none";
         this.startLabyrinthButton.style.display = "none";
         this.searchOrderButton.style.display  = "none";
+        this.solverTypeButton.style.display = "none";
     }
 
     showButtons(){
@@ -791,6 +818,7 @@ class Labyrinth{
         this.charactersFormButton.style.display = "inline-block";
         this.startLabyrinthButton.style.display = "inline-block";
         this.searchOrderButton.style.display  = "inline-block";
+        this.solverTypeButton.style.display = "inline-block";
     }
 
     showStartLabyrinthButton(){

@@ -9,17 +9,19 @@ class LabyrinthSolver{
     }
 
     solve(){
-        const solvingMode = Labyrinth.solvingMode;
-        if(solvingMode == "Manual"){
+        const solverType = Labyrinth.getSolverType();
+        Labyrinth.setLabyrinthWorking(true);
+        if(solverType == "Manual"){
             this.labyrinthMovement.startLabyrinth();
-        }else if(solvingMode == "Depth"){
+        }else if(solverType == "Depth"){
             this.depthFirstSearch.solve();
         }
     }
 
     stop(){
-        const solvingMode = Labyrinth.solvingMode;
-        if(solvingMode == "Depth"){
+        const solverType = Labyrinth.getSolverType();
+        Labyrinth.setLabyrinthWorking(false);
+        if(solverType == "Depth"){
             this.depthFirstSearch.stop();
         }
 

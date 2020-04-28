@@ -13,7 +13,8 @@
 	background-color: #fefefe;
 	margin: auto;
 	padding: 20px;
-	width: 80%;
+  width: 80%;
+  border: 3px solid #73AD21;
 }
 
 table{
@@ -34,7 +35,7 @@ table td, table tr{
   background-color: black;
 }
 
-.colorsList{
+.colorsList, .radioGroup{
   display: inline-flex;
   width: 100%;
 }
@@ -105,3 +106,14 @@ tr:nth-child(even){background-color: #f2f2f2}
   height: 50px;
   margin-top: 10px;
 }   
+
+.center {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+}
+
+.radio{
+  display: inline-block;
+  width: 6em;
+}
