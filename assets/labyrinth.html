@@ -21,9 +21,7 @@
         <button type="button" id="solverTypeButton" class="topButtons hiddenButton">Seleccionar tipo de solución</button>
         <button type="button" id="startLabyrinthButton" class="topButtons hiddenButton">Iniciar laberinto</button>
         <button type="button" id="finishLabyrinthButton" class="topButtons hiddenButton">Finalizar laberinto</button>
-    </div>
-    <h1>Laberinto</h1>
-    
+    </div>    
     <!-- Modal para la selección de terrenos -->
     <div id="terrainForm" class="modal">
         <div class="modal-content">
@@ -79,9 +77,10 @@
             <button type="button" id="submitSolverTypeFormButton" class="submitButton">Guardar tipo de solución</button>
         </div>
     </div>
-    
-    <div id="labyrinth" class="labyrinth"></div>
-    <div id="labyrinthGraph"></div>
+    <div id="gameContainer" class="flex-container">
+        <div id="labyrinth" class="labyrinth"></div>
+        <div id="labyrinthGraph"></div>
+    </div>
     
 </body>
 </html>

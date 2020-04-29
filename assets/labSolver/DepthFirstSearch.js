@@ -13,7 +13,7 @@ class DepthFirstSearch{
         this.finalStateFound = false;
         this.acumulatedCost = 0;
         this.visitNumber = 0;
-        this.waitTime = 1000; // 1 segundo
+        this.waitTime = 100; // 1 segundo
     }
 
     async solve(){
