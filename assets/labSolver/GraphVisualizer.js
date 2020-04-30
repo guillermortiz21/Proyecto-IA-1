@@ -9,11 +9,8 @@ class GraphVisualizer{
 
     drawGraph(graph, container, routeToFinal){
         this.routeToFinal = routeToFinal;
-        console.log(graph);
-        console.log(container);
         this.setOptions();
         this.setGraphData(graph);
-        console.log(this.data);
         var network = new vis.Network(container, this.data, this.options);
         this.setStyles();
     }
@@ -71,18 +68,25 @@ class GraphVisualizer{
             },
             autoResize: true,
             height: '1000px',
-            width: '1000px',
+            width: '750px',
             locale: 'en',
             layout: {
                 hierarchical: {
                     enabled: true,
-                    sortMethod: "directed",
                     shakeTowards: "roots",
                     parentCentralization: true
                 }
             }
         }
     }
+    /*
+        hierarchical: {
+            enabled: true, le dice al grafo que va a tener una jerarquía (se muestra como arbol)
+            sortMethod: "directed", (Para asegurara los niveles)
+            shakeTowards: "roots", (que las hojas estén lo más cerca posible a su padre)
+            parentCentralization: true
+        }
+    */
 
     setStyles(){
         document.getElementsByClassName("vis-network")[0].style.margin = "10px auto";

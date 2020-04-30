@@ -13,7 +13,7 @@ class DepthFirstSearch{
         this.finalStateFound = false;
         this.acumulatedCost = 0;
         this.visitNumber = 0;
-        this.waitTime = 1000; // 1 segundo
+        this.waitTime = 100; // 1 segundo
     }
 
     async solve(){
@@ -48,6 +48,7 @@ class DepthFirstSearch{
             this.routeToFinal = this.solverUtils.getRouteToFinal(this.initialState, this.finalState);
         }
         this.showResult();
+        this.drawGraph();
         console.log(this.solverUtils.getLabGraph());
         console.log(this.solverUtils.getVisitOrder());
         
@@ -62,6 +63,7 @@ class DepthFirstSearch{
         this.acumulatedCost = 0;
         this.solverUtils.clearVars();
         this.visitNumber = 0;
+        this.routeToFinal = [];
     }
 
     startSolver(){
@@ -162,7 +164,6 @@ class DepthFirstSearch{
     showResult(){
         if(this.finalStateFound){
             alert("Camino al estado final encontrado");
-            this.drawGraph();
         }else{
             alert("No existe camino al estado final");
         }

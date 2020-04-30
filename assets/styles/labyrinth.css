@@ -80,3 +80,13 @@ input[type="file"] {
     float: left;
     display: none;
 }
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-container > div {
+    text-align: center;
+    margin: 10px;
+}
