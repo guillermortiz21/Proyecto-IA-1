@@ -67,12 +67,13 @@ class GraphVisualizer{
                 color: "#3379BC"
             },
             autoResize: true,
-            height: '1000px',
-            width: '750px',
+            height: '900px',
+            width: '400px',
             locale: 'en',
             layout: {
                 hierarchical: {
                     enabled: true,
+                    sortMethod: "directed",
                     shakeTowards: "roots",
                     parentCentralization: true
                 }
