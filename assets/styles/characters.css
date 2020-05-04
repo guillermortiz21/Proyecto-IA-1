@@ -18,15 +18,14 @@
 .Nera{
     height: 60px;
     width: 45px;
-    /*background-image: url("/assets/gatetes/catBlack.png");*/
     background-image: url("../gatetes/catBlack.png");
     margin-top: -18px;
+    background-image: url("../")
 }
 
 .Ray{
     height: 60px;
     width: 45px;
-    /*background-image: url("../assets/gatetes/catOrange.png");*/
     background-image: url("../gatetes/catOrange.png");
     margin-top: -18px;
 }
@@ -34,7 +33,6 @@
 .Meeko{
     height: 60px;
     width: 45px;
-    /*background-image: url("/assets/gatetes/catGray.png");*/
     background-image: url("../gatetes/catGray.png");
     margin-top: -18px;
 }
@@ -42,7 +40,6 @@
 .Lepuchi{
     height: 60px;
     width: 45px;
-    /*background-image: url("/assets/gatetes/catYellow.png");*/
     background-image: url("../gatetes/catYellow.png");
     margin-top: -18px;
 }
@@ -50,7 +47,6 @@
 .Ares{
     height: 60px;
     width: 45px;
-    /*background-image: url("/assets/gatetes/catGray2.png");*/
     background-image: url("../gatetes/catGray2.png");
     margin-top: -18px;
 }
