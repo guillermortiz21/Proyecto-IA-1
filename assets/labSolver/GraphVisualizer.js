@@ -20,6 +20,7 @@ class GraphVisualizer{
         this.edges = [];
         for(var [key, value] of graph){
             // agregamos la llame a nodes
+            // la label es lo que va a aparecer en cada nodo del arbol
             var label = value.name
             for(let i = 0; i < value.visitNumbers.length; i++){
                 if(label === value.name){
