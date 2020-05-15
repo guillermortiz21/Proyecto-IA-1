@@ -16,6 +16,21 @@ class LabGraph{
         }
     }
 
+    removeState(key){
+        // hay que quitar tanto el state como el vértice del padre a este estado
+        const labState = this.labStates.get(key);
+        const parent = labState.getParent();
+        for(let i=0; i < parent.adjacents.length; i++){
+            if(parent.adjacents[i].row === key.row && parent.adjacents[i].column === key.column){
+                // removemos el vértice del padre al hijo que se está removiendo
+                parent.adjacents.splice(i, 1);
+                break;
+            }
+        }
+        // quitamos el state del map
+        this.labStates.delete(key);
+    }
+
     addToVisitOrder(state){
         this.visitOrder.push(state);
     }
@@ -61,7 +76,43 @@ class LabGraph{
     }
 
     getGn(state){
-        return this.labStates.get(state).Gn;
+        var Gn = null;
+        for(let [key, value] of this.labStates){
+            if(state.row === key.row && state.column === key.column){
+                //console.log(value);
+                //console.log(value.Gn);
+                Gn = value.Gn;
+                break;
+            }
+        }
+        //console.log("returning from getGn: ", Gn);
+        return Gn;
+    }
+
+    getParent(state){
+        console.log(this.labStates);
+        var parent = null;
+        for(let [key, value] of this.labStates){
+            if(state.row === key.row && state.column && key.row){
+                parent = value.parent;
+                break;
+            }
+        }
+        return parent;
+    }
+
+    getParentGn(state){
+        const parent = this.getParent(state);
+        //console.log(parent);
+        if(!parent){
+            //console.log("returning null");
+            return null;
+        }
+        //console.log("not returning null");
+        //console.log("returning: ", this.getGn(parent));
+        const parentGn = this.getGn(parent);
+        //console.log("returning: " + parentGn);
+        return parentGn
     }
 
     clearVars(){

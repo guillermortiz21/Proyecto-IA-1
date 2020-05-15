@@ -17,8 +17,7 @@ class Labyrinth{
         this.finalState = {};
         this.characters = {};
         this.currentCharacter = {}
-        this.solvingMode = "Depth"; // Manual Depth
-        this.solverType = "Depth"; // Manual Depth
+        this.solverType = "UniformCost"; // Manual Depth
         this.searchOrder = ["up", "right", "down", "left"];
         this.labyrinthWorking = false;
 
@@ -82,7 +81,7 @@ class Labyrinth{
 
     setCharacters(characters){
         this.characters = characters;
-        console.log(this.characters);
+        //console.log(this.characters);
     }
 
     getCurrentCharacter(){
@@ -91,7 +90,7 @@ class Labyrinth{
 
     setCurrentCharacter(currentCharacter){
         this.currentCharacter = currentCharacter;
-        console.log(this.currentCharacter);
+        //console.log(this.currentCharacter);
     }
 
     getInitialState(){
@@ -200,8 +199,8 @@ class Labyrinth{
     }
 
     maskLabyrinth(){
-        console.log(this.initialState);
-        console.log(this.finalState);
+        //console.log(this.initialState);
+        //console.log(this.finalState);
         for(let i = 0; i < this.fileArray.length; i++){
             for(let j=0; j < this.fileArray[i].length; j++){
                 const cell = document.getElementById("cell" + i + "," +j);
@@ -407,10 +406,10 @@ class Labyrinth{
     }
 
     getCellColor(i,j){
-        console.log(this.terrainValues);
-        console.log(i, j);
+        //console.log(this.terrainValues);
+        //console.log(i, j);
         const terrainId = document.getElementById('cell' + i + ',' + j).classList[1];
-        console.log(terrainId);
+        //console.log(terrainId);
         var color = "";
         for(let i = 0; i < this.terrainValues.length; i++){
             if(this.terrainValues[i].id === terrainId){

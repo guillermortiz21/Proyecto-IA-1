@@ -1,11 +1,13 @@
 import Labyrinth from '../labyrinth.js';
 import LabyrinthMovement from '../labyrinthMovement.js';
 import DepthFirstSearch from './DepthFirstSearch.js';
+import UniformCost from './UniformCost.js';
 
 class LabyrinthSolver{
     constructor(){
         this.labyrinthMovement = new LabyrinthMovement();
         this.depthFirstSearch = new DepthFirstSearch();
+        this.uniformCost = new UniformCost();
     }
 
     solve(){
@@ -15,6 +17,8 @@ class LabyrinthSolver{
             this.labyrinthMovement.startLabyrinth();
         }else if(solverType == "Depth"){
             this.depthFirstSearch.solve();
+        }else if(solverType == "UniformCost"){
+            this.uniformCost.solve();
         }
     }
 
@@ -23,6 +27,8 @@ class LabyrinthSolver{
         Labyrinth.setLabyrinthWorking(false);
         if(solverType == "Depth"){
             this.depthFirstSearch.stop();
+        }else if(solverType == "UniformCost"){
+            this.uniformCost.stop();
         }
 
         // borrar el grafo.

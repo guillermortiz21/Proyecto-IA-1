@@ -1,3 +1,5 @@
+import Labyrinth from '../labyrinth.js';
+
 class GraphVisualizer{
     constructor(){
         this.nodes = [];
@@ -28,6 +30,10 @@ class GraphVisualizer{
                 }else{
                     label += "," + value.visitNumbers[i];
                 }
+            }
+            const solverType = Labyrinth.getSolverType();
+            if(solverType == "UniformCost"){
+                label += "\nGn: " + parseFloat(value.Gn).toFixed(2);
             }
             const node = {
                 id: key.row + ',' + key.column,
@@ -69,7 +75,7 @@ class GraphVisualizer{
             },
             autoResize: true,
             height: '900px',
-            width: '400px',
+            width: '800px',
             locale: 'en',
             layout: {
                 hierarchical: {

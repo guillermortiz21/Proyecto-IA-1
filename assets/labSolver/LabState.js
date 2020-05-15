@@ -23,6 +23,10 @@ class LabState {
         return this.weight;
     }
 
+    getParent(){
+        return this.parent;
+    }
+
     getGn(){
         return this.Gn;
     }

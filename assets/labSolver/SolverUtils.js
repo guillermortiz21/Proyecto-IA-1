@@ -40,6 +40,10 @@ class SolverUtils{
         //return state;
     }
 
+    removeFromGraph(state){
+        this.labGraph.removeState(state);
+    }
+
     addVertexToGraph(stateA, stateB){
         this.labGraph.addVertex(stateA, stateB);
     }
@@ -102,6 +106,12 @@ class SolverUtils{
             }
         }
         return weight;
+    }
+
+    getParentGn(state){
+        const parentGn = this.labGraph.getParentGn(state);
+        //console.log("returning from solver utils: ", parentGn);
+        return parentGn;
     }
 
     getTerrainId(state){
