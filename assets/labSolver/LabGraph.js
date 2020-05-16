@@ -23,6 +23,7 @@ class LabGraph{
             return;
         }
         const parent = this.getState2(labState.parent);
+        console.log("parent: ", parent);
         for(let i=0; i < parent.adjacents.length; i++){
             if(parent.adjacents[i].row === key.row && parent.adjacents[i].column === key.column){
                 // removemos el vértice del padre al hijo que se está removiendo
