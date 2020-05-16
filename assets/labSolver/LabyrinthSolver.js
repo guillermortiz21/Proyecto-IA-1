@@ -2,12 +2,14 @@ import Labyrinth from '../labyrinth.js';
 import LabyrinthMovement from '../labyrinthMovement.js';
 import DepthFirstSearch from './DepthFirstSearch.js';
 import UniformCost from './UniformCost.js';
+import AStar from './AStar.js';
 
 class LabyrinthSolver{
     constructor(){
         this.labyrinthMovement = new LabyrinthMovement();
         this.depthFirstSearch = new DepthFirstSearch();
         this.uniformCost = new UniformCost();
+        this.aStar = new AStar();
     }
 
     solve(){
@@ -22,7 +24,7 @@ class LabyrinthSolver{
         }else if(solverType == "Greedy"){
             // correr aquí la función para iniciar el algorimo de voraz
         }else if(solverType == "AStar"){
-            // correr aquí la función para iniciar el algoritmo de a *
+            this.aStar.solve();
         }
     }
 
@@ -36,7 +38,7 @@ class LabyrinthSolver{
         }else if(solverType == "Greedy"){
             // correr aquí la función para parar el algorimo de voraz
         }else if(solverType == "AStar"){
-            // correr aquí la función para parar el algoritmo de a *
+            this.aStar.stop();
         }
 
         // borrar el grafo.

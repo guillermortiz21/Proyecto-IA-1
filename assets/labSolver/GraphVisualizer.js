@@ -35,6 +35,9 @@ class GraphVisualizer{
             if(solverType == "UniformCost"){
                 label += "\nGn: " + parseFloat(value.Gn).toFixed(2);
             }
+            if(solverType == "AStar"){
+                label += "\n" + parseFloat(value.Gn).toFixed(2) + "+" + parseFloat(value.Hn).toFixed(2) + "=\n" + parseFloat(value.Gn + value.Hn).toFixed(2);
+            }
             const node = {
                 id: key.row + ',' + key.column,
                 label: label

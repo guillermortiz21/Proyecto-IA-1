@@ -78,13 +78,14 @@ class UniformCost{
         this.solverUtils.setVisitNumber(firstVisit);
         this.solverUtils.setCurrentState(this.initialState);
 
+        const Hn = this.getHn(this.initialState);
         // Agregamos el estado inicial al grafo, con un Gn de 0
-        this.solverUtils.addToGraph(this.initialState, null, 0);
+        this.solverUtils.addToGraph(this.initialState, null, 0, Hn);
 
         // poner estado inicial en la cola de prioridad
         this.priorityQueue.push({
             state: this.initialState, 
-            cost: 0
+            cost: Hn
         });
     }
 
@@ -121,39 +122,40 @@ class UniformCost{
         for(let i = 0; i < adjacents.length; i++){
             if(this.solverUtils.isValidAdjacent(adjacents[i], this.visited)){
                 const Gn = this.getGn(adjacents[i]);
+                const Hn = this.getHn(adjacents[i]);
                 // tabién hay que revisar que el estado no esté ya en el grafo
                 if(!this.solverUtils.isInGraphByState(adjacents[i])){
                     // es un estado válido, lo agregamos al grafo
-                    this.addState(adjacents[i], Gn);              
+                    this.addState(adjacents[i], Gn, Hn);              
                 }else{
                     // si el estado ya está en el grafo, hay que cuál tiene menor peso
                     // entre el adjacente que estoy evaluando y el que ya se encuentra en el grafo.
                     const inGraphCost = this.solverUtils.getGn(adjacents[i]);
                     if(Gn < inGraphCost){
                         console.log("eliminando rama");
-                        console.log("eliminando", adjacents[i]);
                         // si el costo del adyacente que se está evaluando es menor que el costo del que ya estaba en el grafo
                         // hay que borrar el que ya está del grafo y de la cola.
                         // y hay que agregar el adyacente que se está evaluando.
+                        console.log("eliminando", adjacents[i]);
                         this.removeFromPriorityQueue(adjacents[i]); // lo quitamos de la cola de prioridad
                         this.solverUtils.removeFromGraph(adjacents[i]);
                         // y agregamos el nuevo estado al grafo
-                        this.addState(adjacents[i], Gn);
+                        this.addState(adjacents[i], Gn, Hn);
                     }
                 }
             }
         }
     }
 
-    addState(state, Gn){
+    addState(state, Gn, Hn){
         // agregamos el estado al grafo
-        this.solverUtils.addToGraph(state, this.currentState, Gn);
+        this.solverUtils.addToGraph(state, this.currentState, Gn, Hn);
     
         // creamos el vértice
         this.solverUtils.addVertexToGraph(this.currentState, state);
 
         // metemos el estado a la cola de forma prioritaria.
-        this.addToPriorityQueue(state, Gn);
+        this.addToPriorityQueue(state, Gn, Hn);
     }
 
     getGn(state){
@@ -165,20 +167,26 @@ class UniformCost{
         return parentGn + stateWeight;
     }
 
-    addToPriorityQueue(state, Gn){
+    getHn(state){
+        const Hn = Math.abs(state.row - this.finalState.row) + Math.abs(state.column - this.finalState.column);
+        return Hn;
+    }
+
+    addToPriorityQueue(state, Gn, Hn){
+        const cost = Gn + Hn;
         // hay que iterar a través de la cola de prioridad hasta encontrar un nodo con peso 
         var found = false;
         for(let i = 0; i < this.priorityQueue.length; i++){
-            if(this.priorityQueue[i].cost > Gn){
+            if(this.priorityQueue[i].cost > cost){
                 // i es la posición donde insertar este nuevo nodo.
-                this.priorityQueue.splice(i, 0, {state: state, cost: Gn});
+                this.priorityQueue.splice(i, 0, {state: state, cost: cost});
                 found = true;
                 break;
             }
         }
         if(!found){
             // si llegó aquí es porque el estado adyacente va hasta el final de la cola
-            this.priorityQueue.push({state: state, cost: Gn});
+            this.priorityQueue.push({state: state, cost: cost});
         }
     }
 
