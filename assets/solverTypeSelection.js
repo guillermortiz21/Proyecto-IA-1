@@ -43,7 +43,7 @@ class SolverTypeSelection{
                 divContent += '<label for="Depth">Costo uniforme</label>'
 
                 divContent += '<div class="radioContainer"><input type="radio" id="radio-Greedy" name="solverType" value="Greedy"></div>'
-                divContent += '<label for="Depth">Voraz Primero Mejor</label>'
+                divContent += '<label for="Depth">Voraz primero el mejor</label>'
 
                 divContent += '<div class="radioContainer"><input type="radio" id="radio-AStar" name="solverType" value="AStar"></div>'
                 divContent += '<label for="Depth">A*</label>'
