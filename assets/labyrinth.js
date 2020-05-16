@@ -17,7 +17,7 @@ class Labyrinth{
         this.finalState = {};
         this.characters = {};
         this.currentCharacter = {}
-        this.solverType = "Depth"; // Manual Depth UniformCost
+        this.solverType = "Depth"; // Manual Depth UniformCost Greedy AStar
         this.searchOrder = ["up", "right", "down", "left"];
         this.labyrinthWorking = false;
 
