@@ -19,6 +19,10 @@ class LabyrinthSolver{
             this.depthFirstSearch.solve();
         }else if(solverType == "UniformCost"){
             this.uniformCost.solve();
+        }else if(solverType == "Greedy"){
+            // correr aquí la función para iniciar el algorimo de voraz
+        }else if(solverType == "AStar"){
+            // correr aquí la función para iniciar el algoritmo de a *
         }
     }
 
@@ -29,6 +33,10 @@ class LabyrinthSolver{
             this.depthFirstSearch.stop();
         }else if(solverType == "UniformCost"){
             this.uniformCost.stop();
+        }else if(solverType == "Greedy"){
+            // correr aquí la función para parar el algorimo de voraz
+        }else if(solverType == "AStar"){
+            // correr aquí la función para parar el algoritmo de a *
         }
 
         // borrar el grafo.

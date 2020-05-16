@@ -17,7 +17,6 @@ class SolverTypeSelection{
     saveSolverType(){
         if(document.querySelector('input[name="solverType"]:checked')){
             const checkedValue = document.querySelector('input[name="solverType"]:checked').value;
-            console.log(checkedValue);
             Labyrinth.setSolverType(checkedValue);
             this.hideOrderForm();
             console.log(Labyrinth.getSolverType());
@@ -36,8 +35,18 @@ class SolverTypeSelection{
             divContent += '<div class="radioContainer">';
                 divContent += '<div class="radioContainer"><input type="radio" id="radio-Manual" name="solverType" value="Manual"></div>'
                 divContent += '<label for="Manual">Manual</label>'
+
                 divContent += '<div class="radioContainer"><input type="radio" id="radio-Depth" name="solverType" value="Depth"></div>'
                 divContent += '<label for="Depth">Profundidad</label>'
+
+                divContent += '<div class="radioContainer"><input type="radio" id="radio-UniformCost" name="solverType" value="UniformCost"></div>'
+                divContent += '<label for="Depth">Costo uniforme</label>'
+
+                divContent += '<div class="radioContainer"><input type="radio" id="radio-Greedy" name="solverType" value="Greedy"></div>'
+                divContent += '<label for="Depth">Voraz Primero Mejor</label>'
+
+                divContent += '<div class="radioContainer"><input type="radio" id="radio-AStar" name="solverType" value="AStar"></div>'
+                divContent += '<label for="Depth">A*</label>'
             divContent += '</div>';
         divContent += '</div>';
 
