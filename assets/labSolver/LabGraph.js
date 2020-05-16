@@ -18,8 +18,11 @@ class LabGraph{
 
     removeState(key){
         // hay que quitar tanto el state como el vértice del padre a este estado
-        const labState = this.labStates.get(key);
-        const parent = labState.getParent();
+        const labState = this.getState2(key);
+        if(!labState){
+            return;
+        }
+        const parent = this.getState2(labState.parent);
         for(let i=0; i < parent.adjacents.length; i++){
             if(parent.adjacents[i].row === key.row && parent.adjacents[i].column === key.column){
                 // removemos el vértice del padre al hijo que se está removiendo
@@ -28,7 +31,25 @@ class LabGraph{
             }
         }
         // quitamos el state del map
-        this.labStates.delete(key);
+        for(var [mapKey, value] of this.labStates){
+            //console.log(`${key.row} === ${state.row} && ${key.column} === ${state.column}`);
+            if(key.row === mapKey.row && key.column === mapKey.column){
+                this.labStates.delete(mapKey);
+                break;
+            }
+        }
+    }
+
+    getState2(state){
+        var keyValue = null;
+        for(var [key, value] of this.labStates){
+            //console.log(`${key.row} === ${state.row} && ${key.column} === ${state.column}`);
+            if(key.row === state.row && key.column === state.column){
+                keyValue = value;
+                break;
+            }
+        }
+        return keyValue;
     }
 
     addToVisitOrder(state){
@@ -36,7 +57,8 @@ class LabGraph{
     }
 
     addVisitNumber(state, visitNumber){
-        this.labStates.get(state).addVisitNumber(visitNumber);
+        const labState = this.getState2(state);
+        labState.addVisitNumber(visitNumber);
     }
 
     keyInGraph(key){
@@ -58,7 +80,9 @@ class LabGraph{
     }
 
     setStateAsVisited(state){
-        this.labStates.get(state).visited = true;
+        const labState = this.getState2(state);
+        labState.visited = true;
+        //this.labStates.get(state).visited = true;
     }
 
     getVisitOrder(){
@@ -71,7 +95,7 @@ class LabGraph{
 
     addVertex(stateA, stateB){
         // agregar stateB a los adjacents de stateA
-        const labState = this.getState(stateA);
+        const labState = this.getState2(stateA);
         labState.adjacents.push(stateB);
     }
 
