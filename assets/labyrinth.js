@@ -17,7 +17,7 @@ class Labyrinth{
         this.finalState = {};
         this.characters = {};
         this.currentCharacter = {}
-        this.solverType = "Depth"; // Manual Depth UniformCost
+        this.solverType = "UniformCost"; // Manual Depth UniformCost
         this.searchOrder = ["up", "right", "down", "left"];
         this.labyrinthWorking = false;
 
