@@ -278,10 +278,17 @@ class SolverUtils{
     }
 
     drawRouteInLabyrinth(routeToFinal){
+        var cost = 0;
         for(let i = 0; i < routeToFinal.length; i++){
             const cell = document.getElementById("cell" + routeToFinal[i].row + "," + routeToFinal[i].column);
             cell.style.backgroundColor = "#D4EFBF";
+            if(i !== 0){
+                // hay que contar el costo de la solución. El primer nodo no cuenta.
+                cost = cost + this.getStateWeight(routeToFinal[i]);
+            }
         }
+        const costDiv = document.getElementById("solutionCost");
+        costDiv.innerHTML = '<h1 style="text-align: center">Costo de solución: ' + cost + '</h1>';
     }
     
     getRouteToFinal(initialState, finalState){

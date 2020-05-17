@@ -45,6 +45,8 @@ class LabyrinthSolver{
 
         // borrar el grafo.
         document.getElementById("labyrinthGraph").innerHTML = "";
+        const costDiv = document.getElementById("solutionCost");
+        costDiv.innerHTML = '';
     }
 }
 
