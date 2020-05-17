@@ -288,7 +288,7 @@ class SolverUtils{
             }
         }
         const costDiv = document.getElementById("solutionCost");
-        costDiv.innerHTML = '<h1 style="text-align: center">Costo de solución: ' + cost + '</h1>';
+        costDiv.innerHTML = '<h1 style="text-align: center">Costo de solución: ' + parseFloat(cost).toFixed(2) + '</h1>';
     }
     
     getRouteToFinal(initialState, finalState){
