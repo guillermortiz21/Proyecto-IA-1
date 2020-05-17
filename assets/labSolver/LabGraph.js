@@ -114,6 +114,20 @@ class LabGraph{
         return Gn;
     }
 
+    getHn(state){
+        var Hn = null;
+        for(let [key, value] of this.labStates){
+            if(state.row === key.row && state.column === key.column){
+                //console.log(value);
+                //console.log(value.Gn);
+                Hn = value.Hn;
+                break;
+            }
+        }
+        //console.log("returning from getGn: ", Gn);
+        return Hn;
+    }
+
     getParent(state){
         console.log(this.labStates);
         var parent = null;

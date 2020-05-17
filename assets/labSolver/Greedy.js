@@ -1,7 +1,7 @@
 import Labyrinth from '../labyrinth.js';
 import SolverUtils from './SolverUtils.js';
 
-class AStar{
+class Greedy{
     constructor(){
         this.solverUtils = new SolverUtils();
         this.priorityQueue = []; // cola de prioridad del algoritmo. Va a guardar las coordenadas de los nodos
@@ -51,8 +51,7 @@ class AStar{
         this.showResult();
         this.drawGraph();
         console.log(this.solverUtils.getLabGraph());
-        console.log(this.solverUtils.getVisitOrder());
-        
+        console.log(this.solverUtils.getVisitOrder()); 
     }
 
     clearVars(){
@@ -75,7 +74,7 @@ class AStar{
         this.finalState = Labyrinth.getFinalState();
         
         this.measureType = Labyrinth.getMeasureType();
-        
+
         // iniciamos las visitas
         const firstVisit = 1;
         this.solverUtils.setVisitNumber(firstVisit);
@@ -83,7 +82,7 @@ class AStar{
 
         const Hn = this.getHn(this.initialState);
         // Agregamos el estado inicial al grafo, con un Gn de 0
-        this.solverUtils.addToGraph(this.initialState, null, 0, Hn);
+        this.solverUtils.addToGraph(this.initialState, null, null, Hn);
 
         // poner estado inicial en la cola de prioridad
         this.priorityQueue.push({
@@ -124,17 +123,16 @@ class AStar{
         // Hijo válido es que su peso no sea n/a y que no esté fuera del laberinto
         for(let i = 0; i < adjacents.length; i++){
             if(this.solverUtils.isValidAdjacent(adjacents[i], this.visited)){
-                const Gn = this.getGn(adjacents[i]);
                 const Hn = this.getHn(adjacents[i]);
                 // tabién hay que revisar que el estado no esté ya en el grafo
                 if(!this.solverUtils.isInGraphByState(adjacents[i])){
                     // es un estado válido, lo agregamos al grafo
-                    this.addState(adjacents[i], Gn, Hn);              
+                    this.addState(adjacents[i], Hn);              
                 }else{
                     // si el estado ya está en el grafo, hay que cuál tiene menor peso
                     // entre el adjacente que estoy evaluando y el que ya se encuentra en el grafo.
-                    const inGraphCost = this.solverUtils.getGn(adjacents[i]);
-                    if(Gn < inGraphCost){
+                    const inGraphCost = this.solverUtils.getHn(adjacents[i]);
+                    if(Hn < inGraphCost){
                         console.log("eliminando rama");
                         // si el costo del adyacente que se está evaluando es menor que el costo del que ya estaba en el grafo
                         // hay que borrar el que ya está del grafo y de la cola.
@@ -150,24 +148,15 @@ class AStar{
         }
     }
 
-    addState(state, Gn, Hn){
+    addState(state, Hn){
         // agregamos el estado al grafo
-        this.solverUtils.addToGraph(state, this.currentState, Gn, Hn);
+        this.solverUtils.addToGraph(state, this.currentState, null, Hn);
     
         // creamos el vértice
         this.solverUtils.addVertexToGraph(this.currentState, state);
 
         // metemos el estado a la cola de forma prioritaria.
-        this.addToPriorityQueue(state, Gn, Hn);
-    }
-
-    getGn(state){
-        if(this.visitNumber === 0){
-            return 0;
-        }
-        const parentGn = this.solverUtils.getGn(this.currentState);
-        const stateWeight = this.solverUtils.getStateWeight(state);
-        return parentGn + stateWeight;
+        this.addToPriorityQueue(state, Hn);
     }
 
     getHn(state){
@@ -184,21 +173,21 @@ class AStar{
         return Hn;
     }
 
-    addToPriorityQueue(state, Gn, Hn){
-        const cost = Gn + Hn;
+    addToPriorityQueue(state, Hn){
+        //const cost = Hn;
         // hay que iterar a través de la cola de prioridad hasta encontrar un nodo con peso 
         var found = false;
         for(let i = 0; i < this.priorityQueue.length; i++){
-            if(this.priorityQueue[i].cost > cost){
+            if(this.priorityQueue[i].cost > Hn){
                 // i es la posición donde insertar este nuevo nodo.
-                this.priorityQueue.splice(i, 0, {state: state, cost: cost});
+                this.priorityQueue.splice(i, 0, {state: state, cost: Hn});
                 found = true;
                 break;
             }
         }
         if(!found){
             // si llegó aquí es porque el estado adyacente va hasta el final de la cola
-            this.priorityQueue.push({state: state, cost: cost});
+            this.priorityQueue.push({state: state, cost: Hn});
         }
     }
 
@@ -239,6 +228,7 @@ class AStar{
     stop(){
         this.clearVars();
     }
+
 }
 
-export default AStar;
+export default Greedy;

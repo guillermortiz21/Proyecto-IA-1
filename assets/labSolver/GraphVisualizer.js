@@ -38,6 +38,9 @@ class GraphVisualizer{
             if(solverType == "AStar"){
                 label += "\n" + parseFloat(value.Gn).toFixed(2) + "+" + parseFloat(value.Hn).toFixed(2) + "=\n" + parseFloat(value.Gn + value.Hn).toFixed(2);
             }
+            if(solverType == "Greedy"){
+                label += "\nHn: " + parseFloat(value.Hn).toFixed(2);
+            }
             const node = {
                 id: key.row + ',' + key.column,
                 label: label
@@ -78,7 +81,7 @@ class GraphVisualizer{
             },
             autoResize: true,
             height: '900px',
-            width: '800px',
+            width: '400px',
             locale: 'en',
             layout: {
                 hierarchical: {

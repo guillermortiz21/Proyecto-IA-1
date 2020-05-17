@@ -1,7 +1,10 @@
 import Labyrinth from './labyrinth.js';
+import MeasureTypeSelection from './measureTypeSelection.js';
 
 class SolverTypeSelection{
-    constructor(){}
+    constructor(){
+        this.measureTypeSelection = new MeasureTypeSelection();
+    }
 
     setVariables(){
         this.solverTypeForm = document.getElementById("solverTypeForm");
@@ -18,8 +21,11 @@ class SolverTypeSelection{
         if(document.querySelector('input[name="solverType"]:checked')){
             const checkedValue = document.querySelector('input[name="solverType"]:checked').value;
             Labyrinth.setSolverType(checkedValue);
+            console.log(checkedValue);
             this.hideOrderForm();
-            console.log(Labyrinth.getSolverType());
+            if(Labyrinth.getSolverType() == "Greedy" || checkedValue == "AStar"){
+                this.measureTypeSelection.drawMeasureTypeForm();
+            }
         }else{
             alert("No se seleccionó ningún tipo de solución");
             return;

@@ -122,6 +122,10 @@ class SolverUtils{
         return this.labGraph.getGn(state);
     }
 
+    getHn(state){
+        return this.labGraph.getHn(state);
+    }
+
     getCurrentCharacter(){
         return Labyrinth.getCurrentCharacter();
     }

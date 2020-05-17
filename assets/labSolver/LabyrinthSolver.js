@@ -3,6 +3,7 @@ import LabyrinthMovement from '../labyrinthMovement.js';
 import DepthFirstSearch from './DepthFirstSearch.js';
 import UniformCost from './UniformCost.js';
 import AStar from './AStar.js';
+import Greedy from './Greedy.js'
 
 class LabyrinthSolver{
     constructor(){
@@ -10,6 +11,7 @@ class LabyrinthSolver{
         this.depthFirstSearch = new DepthFirstSearch();
         this.uniformCost = new UniformCost();
         this.aStar = new AStar();
+        this.greedy = new Greedy();
     }
 
     solve(){
@@ -22,7 +24,7 @@ class LabyrinthSolver{
         }else if(solverType == "UniformCost"){
             this.uniformCost.solve();
         }else if(solverType == "Greedy"){
-            // correr aquí la función para iniciar el algorimo de voraz
+            this.greedy.solve();
         }else if(solverType == "AStar"){
             this.aStar.solve();
         }
@@ -36,7 +38,7 @@ class LabyrinthSolver{
         }else if(solverType == "UniformCost"){
             this.uniformCost.stop();
         }else if(solverType == "Greedy"){
-            // correr aquí la función para parar el algorimo de voraz
+            this.greedy.stop();
         }else if(solverType == "AStar"){
             this.aStar.stop();
         }

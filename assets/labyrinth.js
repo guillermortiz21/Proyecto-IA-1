@@ -21,6 +21,8 @@ class Labyrinth{
         this.searchOrder = ["up", "right", "down", "left"];
         this.labyrinthWorking = false;
 
+        this.measureType = "Manhattan"; //Manhattan Euclidean
+
         this.labyrinthElement = document.getElementById("labyrinth"); // elemento html donde se pinta el laberinto
         this.terrainFormModal = document.getElementById("terrainForm"); // elemento html donde se piden los datos de los terrenos
         this.terrainsFormButton = document.getElementById("terrainsFormButton"); // botón para modificar los datos de los terrenos
@@ -137,6 +139,14 @@ class Labyrinth{
 
     getLabyrinthWorking(){
         return this.labyrinthWorking;
+    }
+
+    setMeasureType(msType){
+        this.measureType = msType;
+    }
+
+    getMeasureType(){
+        return this.measureType;
     }
 
     parseFile(){
